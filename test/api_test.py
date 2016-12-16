@@ -1,4 +1,4 @@
-from helloworld import app
+from kudos import app
 
 app = app.app.test_client()
 
