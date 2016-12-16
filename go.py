@@ -26,6 +26,10 @@ def deploy(environment):
     click.echo('Deploying to ', nl=False)
     click.echo(click.style(environment, fg='green', bold=True))
 
+    tag = '{0}/{1}:latest'.format(config.get('dockerhub_user'), config.get('project_name'))
+
+    call(['docker', 'push', ])
+
 @cli.command()
 @click.argument('version', default=lambda: os.environ.get('VERSION', 'local'))
 def build(version):
