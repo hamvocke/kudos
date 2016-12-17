@@ -28,7 +28,7 @@ def deploy(environment):
 
     tag = '{0}/{1}:latest'.format(config.get('dockerhub_user'), config.get('project_name'))
 
-    call(['docker', 'push', ])
+    call(['docker', 'push', tag])
 
 @cli.command()
 @click.argument('version', default=lambda: os.environ.get('VERSION', 'local'))
