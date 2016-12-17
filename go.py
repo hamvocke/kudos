@@ -4,6 +4,7 @@ import pytest
 import os
 import yaml
 from subprocess import call
+from kudos import app
 
 config = {}
 
