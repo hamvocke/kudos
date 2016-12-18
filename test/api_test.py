@@ -7,7 +7,10 @@ def test_should_return_200_status():
     response = app.get("/")
     assert response.status_code == 200
 
-
-def test_should_return_hello_world_body():
+def test_should_render_index_page():
     response = app.get("/")
     assert b"<h1>Kudos</h1>" in response.data
+
+def test_should_redirect_to_index_after_create():
+    response = app.post("/create", data=dict(email='someMail@example.com'))
+    assert response.status_code == 302
