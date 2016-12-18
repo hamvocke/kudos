@@ -1,57 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <title>Kudos - Get Feedback Faster</title>
-  <meta name="description" content="">
-  <meta name="author" content="Ham Vocke">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300i,800" rel="stylesheet" type="text/css">
-
-  <link rel="stylesheet" href="{{url_for('static', filename='css/font-awesome.min.css')}}">
-  <link rel="stylesheet" href="{{url_for('static', filename='css/normalize.css')}}">
-  <link rel="stylesheet" href="{{url_for('static', filename='css/skeleton.css')}}">
-  <link rel="stylesheet" href="{{url_for('static', filename='css/kudos.css')}}">
-
-  <link rel="icon" type="image/png" href="/favicon.png">
-</head>
-
-<body>
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul class="messages">
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
-
-  <section id="hero">
-    <div class="container">
-      <div class="row">
-        <div class="six columns">
-          <h1>Kudos</h1>
-          <h2>Get Feedback Faster</h2>
-        </div>
-
-        <div class="six columns">
-          <form action="{{ url_for('create') }}" method="post">
-            <label for="round">What do you want to get feedback for?</label>
-            <input class="u-full-width" placeholder="Team Retrospective" id="round" type="text">
-
-            <label for="email">Your email</label>
-            <input class="u-full-width" placeholder="you@example.com" id="email" type="email" name="email">
-
-            <button class="button-primary" type="submit">Start now!</button>
-          </form>
-        </div>
-
+{% extends "base.html" %}
+{% block body %}
+<section id="hero">
+  <div class="container">
+    <div class="row">
+      <div class="six columns">
+        <h1>Kudos</h1>
+        <h2>Get Feedback Faster</h2>
       </div>
-    </div>
-  </section>
-</body>
 
-</html>
+      <div class="six columns">
+        <form action="{{ url_for('create') }}" method="post">
+          <label for="round">What do you want to get feedback for?</label>
+          <input class="u-full-width" placeholder="Team Retrospective" id="round" type="text">
+
+          <label for="email">Your email</label>
+          <input class="u-full-width" placeholder="you@example.com" id="email" type="email" name="email">
+
+          <button class="button-primary" type="submit">Start now!</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}
