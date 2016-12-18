@@ -28,14 +28,14 @@
         </div>
 
         <div class="six columns">
-          <form action="">
+          <form action=""{{ url_for('create') }}"">
             <label for="email">Your email</label>
             <input class="u-full-width" placeholder="you@example.com" id="email" type="email">
 
             <label for="round">What are you collecting feedback for?</label>
             <input class="u-full-width" placeholder="Team Retrospective" id="round" type="text">
 
-            <button class="button-primary" type="submit">Get Feedback</button>
+            <button class="button-primary" type="submit">Gather Feedback</button>
           </form>
         </div>
 
