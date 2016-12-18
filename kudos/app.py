@@ -1,6 +1,9 @@
 from flask import Flask
-from flask import render_template, redirect, url_for, request
-app = Flask(__name__)
+from flask import render_template, redirect, url_for, request, flash
+
+app = Flask(__name__, instance_relative_config=True)
+app.config.from_object('config')
+app.config.from_pyfile('production.py')
 
 
 @app.route("/")
