@@ -51,6 +51,12 @@ def test():
     click.echo('Running tests')
     pytest.main()
 
+@cli.command()
+def run():
+    marker()
+    click.echo('Starting server')
+    call(['python', 'kudos/app.py'])
+
 if __name__ == '__main__':
     load_config()
     cli()
