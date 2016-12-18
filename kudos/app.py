@@ -13,4 +13,5 @@ def index():
 @app.route("/create", methods=['POST'])
 def create():
     app.logger.debug(request.form['email'])
+    flash("Created new feedback round")
     return redirect(url_for("index"))

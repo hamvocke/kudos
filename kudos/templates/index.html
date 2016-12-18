@@ -19,6 +19,16 @@
 </head>
 
 <body>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="messages">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
   <section id="hero">
     <div class="container">
       <div class="row">
@@ -29,13 +39,13 @@
 
         <div class="six columns">
           <form action="{{ url_for('create') }}" method="post">
+            <label for="round">What do you want to get feedback for?</label>
+            <input class="u-full-width" placeholder="Team Retrospective" id="round" type="text">
+
             <label for="email">Your email</label>
             <input class="u-full-width" placeholder="you@example.com" id="email" type="email" name="email">
 
-            <label for="round">What are you gathering feedback for?</label>
-            <input class="u-full-width" placeholder="Team Retrospective" id="round" type="text">
-
-            <button class="button-primary" type="submit">Gather Feedback</button>
+            <button class="button-primary" type="submit">Start now!</button>
           </form>
         </div>
 

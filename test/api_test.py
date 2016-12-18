@@ -15,3 +15,7 @@ def test_should_redirect_to_index_after_create():
     response = app.post("/create", data=dict(email='someMail@example.com'), follow_redirects=True)
     assert response.status_code == 200
     assert b"<h1>Kudos</h1>" in response.data
+
+def test_should_flash_message_after_create():
+    response = app.post("/create", data=dict(email='someMail@example.com'), follow_redirects=True)
+    assert b"Created new feedback round" in response.data
