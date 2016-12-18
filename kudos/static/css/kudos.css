@@ -1,0 +1,20 @@
+body, html {
+  color: #2C3E50;
+  background-color: #ECF0F1;
+}
+
+#hero {
+  padding: 30px;
+}
+
+#hero h1 {
+  font-weight: 800;
+}
+
+#hero h2 {
+  font-weight: 300;
+  font-style: italic;
+}
+
+#hero button {
+}
