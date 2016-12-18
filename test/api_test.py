@@ -12,5 +12,6 @@ def test_should_render_index_page():
     assert b"<h1>Kudos</h1>" in response.data
 
 def test_should_redirect_to_index_after_create():
-    response = app.post("/create", data=dict(email='someMail@example.com'))
-    assert response.status_code == 302
+    response = app.post("/create", data=dict(email='someMail@example.com'), follow_redirects=True)
+    assert response.status_code == 200
+    assert b"<h1>Kudos</h1>" in response.data
