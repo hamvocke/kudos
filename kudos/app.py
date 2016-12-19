@@ -4,7 +4,7 @@ from raven.contrib.flask import Sentry
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('config')
-app.config.from_pyfile('production.py')
+app.config.from_pyfile('config.cfg', silent=True)
 
 sentry = Sentry(app, dsn=app.config['SENTRY_DSN'])
 
