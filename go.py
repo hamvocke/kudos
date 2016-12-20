@@ -55,7 +55,7 @@ def test():
 def run():
     marker()
     click.echo('Starting server')
-    app.app.run(debug=True)
+    app.run(debug=True)
 
 if __name__ == '__main__':
     load_config()
