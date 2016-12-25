@@ -1,6 +1,5 @@
 from kudos import app
 from flask import render_template, redirect, url_for, request, flash
-from kudos import logger
 
 @app.route('/')
 def index():
