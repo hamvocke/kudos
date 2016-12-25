@@ -1,5 +1,7 @@
 from kudos import app
 from flask import render_template, redirect, url_for, request, flash
+from kudos.models import FeedbackRound
+from kudos import db
 
 @app.route('/')
 def index():
@@ -7,7 +9,8 @@ def index():
 
 @app.route('/create', methods=['POST'])
 def create():
-    app.logger.debug(request.form['email'])
+    feedbackRound = FeedbackRound('My awesome feedback session')
+    db.session.add(feedbackRound)
+    db.session.commit()
     flash('Created new feedback round')
-    app.logger.error('this should show up in sentry')
     return redirect(url_for('index'))
