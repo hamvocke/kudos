@@ -1,11 +1,15 @@
-from kudos import app
+from kudos import app, db
 import unittest
 
 class ApiTestCase(unittest.TestCase):
     def setUp(self):
         app.config.from_object('config.TestingConfig')
-        app.config['TESTING'] = True
         self.app = app.test_client()
+        db.create_all()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
 
     def test_should_return_200_status(self):
         response = self.app.get("/")
