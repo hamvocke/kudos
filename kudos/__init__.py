@@ -1,10 +1,11 @@
+import os
 from flask import Flask
 import logging
 from raven.contrib.flask import Sentry
 from kudos.database import db_session
 
 app = Flask(__name__, instance_relative_config=True)
-app.config.from_object('config')
+app.config.from_object(os.environ.get('APP_PROFILE', 'config.DevelopmentConfig'))
 app.config.from_pyfile('config.cfg', silent=True)
 
 if not app.debug:

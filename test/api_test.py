@@ -3,6 +3,7 @@ import unittest
 
 class ApiTestCase(unittest.TestCase):
     def setUp(self):
+        app.config.from_object('config.TestingConfig')
         app.config['TESTING'] = True
         self.app = app.test_client()
 

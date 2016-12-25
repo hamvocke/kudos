@@ -52,10 +52,12 @@ def test():
     pytest.main()
 
 @cli.command()
-def run():
+@click.argument('environment', default='config.DevelopmentConfig')
+def run(environment):
     marker()
+    os.environ['APP_PROFILE'] = environment
     click.echo('Starting server')
-    app.run(debug=True)
+    app.run()
 
 if __name__ == '__main__':
     load_config()
