@@ -14,3 +14,10 @@ def create():
     db.session.commit()
     flash('Created new feedback round')
     return redirect(url_for('index'))
+
+@app.route('/feedback', methods=['GET'])
+def feedback():
+    feedbackRounds = FeedbackRound.query.all()
+    if feedbackRounds is None:
+        abort(404)
+    return render_template('feedback.html', feedbackRounds = feedbackRounds)
