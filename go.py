@@ -1,10 +1,10 @@
 #! /usr/bin/env python
 import click
 import pytest
-import os
 import yaml
+import os
 from subprocess import call
-from kudos import app
+from kudos import app, db
 
 config = {}
 
@@ -58,6 +58,12 @@ def run(environment):
     os.environ['APP_PROFILE'] = environment
     click.echo('Starting server')
     app.run()
+
+@cli.command()
+def initdb():
+    marker()
+    click.echo('Initialising database')
+    db.create_all()
 
 if __name__ == '__main__':
     load_config()
