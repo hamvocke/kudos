@@ -1,5 +1,5 @@
 from kudos import app
-from flask import render_template, redirect, url_for, request, flash
+from flask import render_template, redirect, url_for, request, flash, abort
 from flask.views import MethodView
 from kudos.models import FeedbackRound
 from kudos import db
@@ -15,7 +15,7 @@ class FeedbackRoundApi(MethodView):
         else:
             feedbackRounds = FeedbackRound.query.filter_by(name=name).all()
 
-        if feedbackRounds is None:
+        if len(feedbackRounds) == 0:
             abort(404)
 
         return render_template('feedbacks.html', feedbackRounds = feedbackRounds)
@@ -28,9 +28,12 @@ class FeedbackRoundApi(MethodView):
         db.session.add(feedbackRound)
         db.session.commit()
         flash('Created new feedback round')
-        return redirect(url_for('feedbackRound', name=feedbackRound.name))
+        return redirect(url_for('feedback_api', name=feedbackRound.name))
 
-feedbackRoundView = FeedbackRoundApi.as_view('feedbackRound')
-app.add_url_rule('/feedbackRound/', defaults={'name': None}, view_func=feedbackRoundView, methods=['GET'])
-app.add_url_rule('/feedbackRound/', view_func=feedbackRoundView, methods=['POST'])
-app.add_url_rule('/feedbackRound/<string:name>', view_func=feedbackRoundView, methods=['GET'])
+    def put(self, name):
+        pass
+
+feedbackRoundView = FeedbackRoundApi.as_view('feedback_api')
+app.add_url_rule('/feedback/', defaults={'name': None}, view_func=feedbackRoundView, methods=['GET',])
+app.add_url_rule('/feedback/', view_func=feedbackRoundView, methods=['POST'])
+app.add_url_rule('/feedback/<string:name>', view_func=feedbackRoundView, methods=['GET', 'PUT'])
