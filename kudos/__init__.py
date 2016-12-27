@@ -17,3 +17,4 @@ if not app.debug:
 
 import kudos.views
 import kudos.models
+import kudos.forms

@@ -2,8 +2,8 @@
 {% block body %}
 <h1>Feedback Rounds</h1>
 <section id="feedback">
-  {% for feedbackRound in feedbackRounds %}
-    <div class="feedbackRound">{{ feedbackRound.name }}</div>
+  {% for feedback in feedbacks %}
+    <div class="feedbackRound">{{ feedback.name }}</div>
   {% endfor %}
 </section>
 {% endblock %}

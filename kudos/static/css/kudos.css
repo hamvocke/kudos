@@ -19,3 +19,8 @@ body, html {
 
 #hero button {
 }
+
+.form_error {
+  color: red;
+  font-size: 0.9em;
+}

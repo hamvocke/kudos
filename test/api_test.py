@@ -21,27 +21,33 @@ class ApiTestCase(unittest.TestCase):
         assert b"<h1>Kudos</h1>" in response.data
 
     def test_should_redirect_to_feedback_page_after_create(self):
-        response = self.app.post("/feedback/", data=dict(email='someMail@example.com', name='test'), follow_redirects=True)
+        response = self.app.post("/", data=dict(email='someMail@example.com', name='test'), follow_redirects=True)
         assert response.status_code == 200
-        assert b"<h1>Feedback Rounds</h1>" in response.data
+        assert b"<h1>test</h1>" in response.data
+
+    def test_should_flash_message_after_create(self):
+        response = self.app.post("/", data=dict(email='someMail@example.com', name='test'), follow_redirects=True)
+        assert b"Created new feedback round" in response.data
 
     def test_should_save_feedback_round(self):
-        response = self.app.post("/feedback/", data=dict(email='someMail@example.com', name='test'), follow_redirects=True)
+        response = self.app.post("/", data=dict(email='someMail@example.com', name='test'), follow_redirects=True)
         savedFeedbackRounds = FeedbackRound.query.all()
         assert len(savedFeedbackRounds) == 1
         assert savedFeedbackRounds[0].name == 'test'
 
-    def test_should_flash_message_after_create(self):
-        response = self.app.post("/feedback/", data=dict(email='someMail@example.com', name='test'), follow_redirects=True)
-        assert b"Created new feedback round" in response.data
-
     def test_should_find_all_feedback_rounds(self):
         self.saveFeedbackRound('somefeedback')
         self.saveFeedbackRound('anotherfeedback')
-        response = self.app.get('/feedback/')
+        response = self.app.get('/feedback')
         assert response.status_code == 200
         assert b"somefeedback" in response.data
         assert b"anotherfeedback" in response.data
+
+    def test_should_get_single_feedback(self):
+        self.saveFeedbackRound('somefeedback')
+        response = self.app.get('/feedback/somefeedback')
+        assert response.status_code == 200
+        assert b"<h1>somefeedback</h1>" in response.data
 
     def saveFeedbackRound(self, name):
         feedbackRound = FeedbackRound(name)
