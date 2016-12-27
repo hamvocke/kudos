@@ -1,6 +1,7 @@
 from kudos import app, db
-from kudos.models import FeedbackRound
+from kudos.models import Feedback
 import unittest
+
 
 class ApiTestCase(unittest.TestCase):
     def setUp(self):
@@ -27,29 +28,29 @@ class ApiTestCase(unittest.TestCase):
 
     def test_should_flash_message_after_create(self):
         response = self.app.post("/", data=dict(email='someMail@example.com', name='test'), follow_redirects=True)
-        assert b"Created new feedback round" in response.data
+        assert b"Created new feedback" in response.data
 
-    def test_should_save_feedback_round(self):
-        response = self.app.post("/", data=dict(email='someMail@example.com', name='test'), follow_redirects=True)
-        savedFeedbackRounds = FeedbackRound.query.all()
-        assert len(savedFeedbackRounds) == 1
-        assert savedFeedbackRounds[0].name == 'test'
+    def test_should_save_feedback(self):
+        self.app.post("/", data=dict(email='someMail@example.com', name='test'), follow_redirects=True)
+        savedFeedbacks = Feedback.query.all()
+        assert len(savedFeedbacks) == 1
+        assert savedFeedbacks[0].name == 'test'
 
-    def test_should_find_all_feedback_rounds(self):
-        self.saveFeedbackRound('somefeedback')
-        self.saveFeedbackRound('anotherfeedback')
+    def test_should_find_all_feedback(self):
+        self.saveFeedback('somefeedback')
+        self.saveFeedback('anotherfeedback')
         response = self.app.get('/feedback')
         assert response.status_code == 200
         assert b"somefeedback" in response.data
         assert b"anotherfeedback" in response.data
 
     def test_should_get_single_feedback(self):
-        self.saveFeedbackRound('somefeedback')
+        self.saveFeedback('somefeedback')
         response = self.app.get('/feedback/somefeedback')
         assert response.status_code == 200
         assert b"<h1>somefeedback</h1>" in response.data
 
-    def saveFeedbackRound(self, name):
-        feedbackRound = FeedbackRound(name)
-        db.session.add(feedbackRound)
+    def saveFeedback(self, name):
+        feedback = Feedback(name)
+        db.session.add(feedback)
         db.session.commit()

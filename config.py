@@ -6,11 +6,14 @@ class Config(object):
     SECRET_KEY = 'someSecretKey'
     SENTRY_DSN = 'someSentryDsn'
 
+
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/kudos_live'
 
+
 class DevelopmentConfig(Config):
     DEBUG = True
+
 
 class TestingConfig(Config):
     DEBUG = True

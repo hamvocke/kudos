@@ -13,6 +13,7 @@ db = SQLAlchemy(app)
 if not app.debug:
     print('activate logging')
     from raven.contrib.flask import Sentry
+
     sentry = Sentry(app, dsn=app.config['SENTRY_DSN'], logging=True, level=logging.ERROR)
 
 import kudos.views

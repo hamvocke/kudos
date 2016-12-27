@@ -1,6 +1,7 @@
 from kudos import app, db, models
 import unittest
 
+
 class DatabaseTestCase(unittest.TestCase):
     def setUp(self):
         app.config.from_object('config.TestingConfig')
@@ -11,11 +12,11 @@ class DatabaseTestCase(unittest.TestCase):
         db.session.remove()
         db.drop_all()
 
-    def test_should_persist_feedback_round(self):
-        feedbackRound = models.FeedbackRound('some test feedback round')
-        db.session.add(feedbackRound)
+    def test_should_persist_feedback(self):
+        feedback = models.Feedback('some test feedback')
+        db.session.add(feedback)
         db.session.commit()
 
-        savedFeedbackRounds = models.FeedbackRound.query.all()
-        assert len(savedFeedbackRounds) == 1
-        assert savedFeedbackRounds[0].name == 'some test feedback round'
+        savedFeedbacks = models.Feedback.query.all()
+        assert len(savedFeedbacks) == 1
+        assert savedFeedbacks[0].name == 'some test feedback'
