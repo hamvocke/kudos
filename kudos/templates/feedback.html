@@ -3,6 +3,15 @@
 <section id="feedback">
   <div class="feedback">
     <h1>{{ feedback.name }}</h1>
+
+    {% for vote in feedback.votes %}
+      <div class="vote">{{ vote.description }}</div>
+    {% endfor %}
+
+    <h2>Vote</h2>
+    {% for option in feedback.options %}
+      <div class="option">{{ option.description }}</div>
+    {% endfor %}
   </div>
 </section>
 {% endblock %}
