@@ -11,8 +11,9 @@ class Feedback(db.Model):
     votes = db.relationship('Vote', backref='feedback')
     options = db.relationship('Option', secondary=options_feedback, backref=db.backref('feedbacks', lazy='dynamic'))
 
-    def __init__(self, name):
+    def __init__(self, name, options=[]):
         self.name = name
+        self.options = options
 
     def __repr__(self):
         return '<Feedback {}>'.format(self.name)

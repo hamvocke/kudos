@@ -1,5 +1,5 @@
 from kudos import app, db
-from kudos.models import Feedback
+from kudos.models import Feedback, OptionSet, Option
 import unittest
 
 
@@ -9,38 +9,49 @@ def save_feedback(name):
     db.session.commit()
 
 
+def save_option_set(name, options):
+    options_to_save = [Option(option) for option in options]
+
+    for option in options_to_save:
+        db.session.add(option)
+
+    option_set = OptionSet(name, options_to_save)
+    db.session.add(option_set)
+    db.session.commit()
+    return option_set
+
+
 class ApiTestCase(unittest.TestCase):
     def setUp(self):
         app.config.from_object('config.TestingConfig')
         self.app = app.test_client()
         db.create_all()
+        self.option_set = save_option_set('Emoticons', [':(', ':)'])
+        self.feedback_dict = dict(email='someMail@example.com', name='test', options=self.option_set.id)
 
     def tearDown(self):
         db.session.remove()
         db.drop_all()
 
-    def test_should_return_200_status(self):
-        response = self.app.get("/")
-        assert response.status_code == 200
-
     def test_should_render_index_page(self):
         response = self.app.get("/")
+        assert response.status_code == 200
         assert b"<h1>Kudos</h1>" in response.data
 
     def test_should_redirect_to_feedback_page_after_create(self):
-        response = self.app.post("/", data=dict(email='someMail@example.com', name='test'), follow_redirects=True)
+        response = self.app.post("/", data=self.feedback_dict, follow_redirects=True)
         assert response.status_code == 200
         assert b"<h1>test</h1>" in response.data
 
     def test_should_flash_message_after_create(self):
-        response = self.app.post("/", data=dict(email='someMail@example.com', name='test'), follow_redirects=True)
+        response = self.app.post("/", data=self.feedback_dict, follow_redirects=True)
         assert b"Created new feedback" in response.data
 
     def test_should_save_feedback(self):
-        self.app.post("/", data=dict(email='someMail@example.com', name='test'), follow_redirects=True)
-        saved_feedback = Feedback.query.all()
-        assert len(saved_feedback) == 1
-        assert saved_feedback[0].name == 'test'
+        self.app.post("/", data=self.feedback_dict, follow_redirects=True)
+        saved_feedback = Feedback.query.first()
+        assert saved_feedback.name == 'test'
+        assert len(saved_feedback.options) == 2
 
     def test_should_find_all_feedback(self):
         save_feedback('somefeedback')
