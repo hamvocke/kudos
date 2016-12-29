@@ -4,7 +4,7 @@ import pytest
 import yaml
 import os
 from subprocess import call
-from kudos import app, db
+from kudos import app, db, initial_data
 
 config = {}
 
@@ -73,6 +73,7 @@ def initdb():
     click.echo('Initialising database')
     db.drop_all()
     db.create_all()
+    initial_data.init_db()
 
 
 if __name__ == '__main__':

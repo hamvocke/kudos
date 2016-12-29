@@ -3,6 +3,12 @@ from kudos.models import Feedback
 import unittest
 
 
+def save_feedback(name):
+    feedback = Feedback(name)
+    db.session.add(feedback)
+    db.session.commit()
+
+
 class ApiTestCase(unittest.TestCase):
     def setUp(self):
         app.config.from_object('config.TestingConfig')
@@ -32,25 +38,20 @@ class ApiTestCase(unittest.TestCase):
 
     def test_should_save_feedback(self):
         self.app.post("/", data=dict(email='someMail@example.com', name='test'), follow_redirects=True)
-        savedFeedbacks = Feedback.query.all()
-        assert len(savedFeedbacks) == 1
-        assert savedFeedbacks[0].name == 'test'
+        saved_feedback = Feedback.query.all()
+        assert len(saved_feedback) == 1
+        assert saved_feedback[0].name == 'test'
 
     def test_should_find_all_feedback(self):
-        self.saveFeedback('somefeedback')
-        self.saveFeedback('anotherfeedback')
+        save_feedback('somefeedback')
+        save_feedback('anotherfeedback')
         response = self.app.get('/feedback')
         assert response.status_code == 200
         assert b"somefeedback" in response.data
         assert b"anotherfeedback" in response.data
 
     def test_should_get_single_feedback(self):
-        self.saveFeedback('somefeedback')
+        save_feedback('somefeedback')
         response = self.app.get('/feedback/somefeedback')
         assert response.status_code == 200
         assert b"<h1>somefeedback</h1>" in response.data
-
-    def saveFeedback(self, name):
-        feedback = Feedback(name)
-        db.session.add(feedback)
-        db.session.commit()
