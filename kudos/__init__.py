@@ -16,6 +16,10 @@ if not app.debug:
 
     sentry = Sentry(app, dsn=app.config['SENTRY_DSN'], logging=True, level=logging.ERROR)
 
+import kudos.initial_data
+
+initial_data.init_db()
+
 import kudos.views
 import kudos.models
 import kudos.forms
