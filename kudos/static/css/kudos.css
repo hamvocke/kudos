@@ -24,3 +24,12 @@ body, html {
   color: red;
   font-size: 0.9em;
 }
+
+.option {
+    background-color: deepskyblue;
+    padding: 12px;
+    margin: 8px;
+    display: inline-block;
+    font-size: 1.4em;
+    border-radius: 8px;
+}
