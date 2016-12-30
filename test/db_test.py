@@ -13,10 +13,14 @@ class DatabaseTestCase(unittest.TestCase):
         db.drop_all()
 
     def test_should_persist_feedback(self):
-        feedback = models.Feedback('some test feedback')
+        some_option = models.Option('some option')
+        feedback = models.Feedback('some test feedback', [some_option])
         db.session.add(feedback)
         db.session.commit()
 
-        savedFeedbacks = models.Feedback.query.all()
-        assert len(savedFeedbacks) == 1
-        assert savedFeedbacks[0].name == 'some test feedback'
+        saved_feedbacks = models.Feedback.query.all()
+        saved_options = models.Option.query.all()
+        assert len(saved_feedbacks) == 1
+        assert saved_feedbacks[0].name == 'some test feedback'
+        assert len(saved_options) == 1
+        assert saved_options[0].description == 'some option'
