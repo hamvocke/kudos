@@ -12,6 +12,8 @@ class Config(object):
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    SENTRY_DSN = os.environ.get('SENTRY_DSN')
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 class DevelopmentConfig(Config):
