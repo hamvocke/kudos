@@ -3,8 +3,8 @@ from kudos.models import Feedback, OptionSet, Option
 import unittest
 
 
-def save_feedback(name):
-    feedback = Feedback(name)
+def save_feedback(name, option_set=None):
+    feedback = Feedback(name, option_set.options if option_set is not None else [])
     db.session.add(feedback)
     db.session.commit()
 
@@ -66,3 +66,15 @@ class ApiTestCase(unittest.TestCase):
         response = self.app.get('/feedback/somefeedback')
         assert response.status_code == 200
         assert b"<h1>somefeedback</h1>" in response.data
+
+    def test_should_vote_for_feedback(self):
+        save_feedback('somefeedback', self.option_set)
+        response = self.app.post('/feedback/somefeedback/{}'.format(self.option_set.options[0].id))
+        assert response.status_code == 200
+        assert b"Thanks for your feedback!" in response.data
+
+    def test_should_return_error_for_invalid_vote(self):
+        save_feedback('somefeedback', self.option_set)
+        response = self.app.post('/feedback/somefeedback/{}'.format(99))
+        assert response.status_code == 400
+        assert b"Option (id=99) is unknown for this feedback" in response.data

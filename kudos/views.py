@@ -1,9 +1,9 @@
-from flask import render_template, redirect, url_for, flash, abort
+from flask import render_template, redirect, url_for, flash, abort, make_response
 
 from kudos import app
 from kudos import db
 from kudos.forms import CreateFeedbackForm
-from kudos.models import Feedback, OptionSet
+from kudos.models import Feedback, OptionSet, Option
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -17,7 +17,7 @@ def index():
         db.session.add(feedback)
         db.session.commit()
         flash('Created new feedback')
-        return redirect(url_for('get_feedback', name=feedback.name))
+        return redirect(url_for('feedback', name=feedback.name))
     return render_template('index.html', form=form)
 
 
@@ -31,6 +31,16 @@ def all_feedback():
 
 
 @app.route('/feedback/<string:name>', methods=['GET'])
-def get_feedback(name):
+def feedback(name):
     feedback = Feedback.query.filter_by(name=name).first_or_404()
+    return render_template('feedback.html', feedback=feedback)
+
+
+@app.route('/feedback/<string:name>/<int:option_id>', methods=['POST'])
+def vote(name, option_id):
+    feedback = Feedback.query.filter_by(name=name).first_or_404()
+    option = Option.query.get(option_id)
+    if option is None:
+        return make_response('Option (id={}) is unknown for this feedback'.format(option_id), 400)
+    flash('Thanks for your feedback!')
     return render_template('feedback.html', feedback=feedback)
