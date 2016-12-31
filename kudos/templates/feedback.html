@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 {% block body %}
-<section id="feedback">
+<section id="feedback" class="container">
   <div class="feedback">
     <h1>{{ feedback.name }}</h1>
 
     {% for vote in feedback.votes %}
-      <div class="vote">{{ vote.description }}</div>
+      <div class="vote">{{ vote.option }}</div>
     {% endfor %}
 
     <h2>Vote</h2>
     {% for option in feedback.options %}
-      <div class="option">{{ option.description }}</div>
+      <a class="option" href="{{ url_for('vote', name=feedback.name,
+      option_id=option.id) }}">{{ option.description }}</a>
     {% endfor %}
   </div>
 </section>
