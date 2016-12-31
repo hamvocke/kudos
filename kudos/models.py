@@ -25,7 +25,8 @@ class Vote(db.Model):
     option = db.Column(db.String(50))
     text = db.Column(db.String(250))
 
-    def __init__(self, option, text):
+    def __init__(self, feedback_id, option, text=None):
+        self.feedback_id = feedback_id
         self.option = option
         self.text = text
 

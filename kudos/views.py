@@ -3,7 +3,7 @@ from flask import render_template, redirect, url_for, flash, abort, make_respons
 from kudos import app
 from kudos import db
 from kudos.forms import CreateFeedbackForm
-from kudos.models import Feedback, OptionSet, Option
+from kudos.models import Feedback, OptionSet, Option, Vote
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -40,7 +40,13 @@ def feedback(name):
 def vote(name, option_id):
     feedback = Feedback.query.filter_by(name=name).first_or_404()
     option = Option.query.get(option_id)
+
     if option is None:
         return make_response('Option (id={}) is unknown for this feedback'.format(option_id), 400)
+
+    vote = Vote(feedback.id, option.description)
+    db.session.add(vote)
+    db.session.commit()
+
     flash('Thanks for your feedback!')
     return render_template('feedback.html', feedback=feedback)

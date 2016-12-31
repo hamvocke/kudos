@@ -1,5 +1,5 @@
 from kudos import app, db
-from kudos.models import Feedback, OptionSet, Option
+from kudos.models import Feedback, OptionSet, Option, Vote
 import unittest
 
 
@@ -67,7 +67,7 @@ class ApiTestCase(unittest.TestCase):
         assert response.status_code == 200
         assert b"<h1>somefeedback</h1>" in response.data
 
-    def test_should_vote_for_feedback(self):
+    def test_should_flash_message_after_voting(self):
         save_feedback('somefeedback', self.option_set)
         response = self.app.post('/feedback/somefeedback/{}'.format(self.option_set.options[0].id))
         assert response.status_code == 200
@@ -78,3 +78,10 @@ class ApiTestCase(unittest.TestCase):
         response = self.app.post('/feedback/somefeedback/{}'.format(99))
         assert response.status_code == 400
         assert b"Option (id=99) is unknown for this feedback" in response.data
+
+    def test_should_save_vote(self):
+        save_feedback('somefeedback', self.option_set)
+        self.app.post('/feedback/somefeedback/{}'.format(self.option_set.options[0].id))
+        saved_votes = Vote.query.all()
+        assert len(saved_votes) == 1
+        assert saved_votes[0].option == ':('
