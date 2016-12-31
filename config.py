@@ -1,3 +1,6 @@
+import os
+
+
 class Config(object):
     DEBUG = False
     TESTING = False
@@ -8,7 +11,7 @@ class Config(object):
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/kudos_live'
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 
 class DevelopmentConfig(Config):
