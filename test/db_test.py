@@ -1,6 +1,16 @@
 from kudos import app, db, models
 import unittest
 
+from kudos.models import Vote
+
+
+def save_feedback(name, option):
+    feedback = models.Feedback(name, [option])
+
+    db.session.add(feedback)
+    db.session.commit()
+    return feedback
+
 
 class DatabaseTestCase(unittest.TestCase):
     def setUp(self):
@@ -14,9 +24,8 @@ class DatabaseTestCase(unittest.TestCase):
 
     def test_should_persist_feedback(self):
         some_option = models.Option('some option')
-        feedback = models.Feedback('some test feedback', [some_option])
-        db.session.add(feedback)
-        db.session.commit()
+
+        save_feedback('some test feedback', some_option)
 
         saved_feedbacks = models.Feedback.query.all()
         saved_options = models.Option.query.all()
@@ -24,3 +33,15 @@ class DatabaseTestCase(unittest.TestCase):
         assert saved_feedbacks[0].name == 'some test feedback'
         assert len(saved_options) == 1
         assert saved_options[0].description == 'some option'
+
+    def test_should_persist_vote(self):
+        some_option = models.Option('some option')
+        feedback = save_feedback('some test feedback', some_option)
+
+        vote = Vote(feedback.id, some_option.description, "some text")
+        db.session.add(vote)
+        db.session.commit()
+
+        saved_votes = models.Vote.query.all()
+        assert len(saved_votes) == 1
+        assert saved_votes[0].text == 'some text'
