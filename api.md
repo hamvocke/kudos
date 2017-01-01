@@ -48,3 +48,24 @@ Body:
   * `201 CREATED` if the feedback has successfully been created
   * `400 BAD REQUEST` if the request data was malformed
 
+### PUT /feedback/{identifier}
+Update a feedback identified by *{identifier}*.
+
+#### Request
+
+Header: `Content-Type: application/json`
+Body:
+```javascript
+{
+    name: 'My Retrospective',
+    email: 'youremail@example.test'
+}
+```
+
+    curl -X PUT -H "Content-Type: application/json" -X POST -d '{name: "My Retrospective", email: "youremail@example.test"}' http://getkudos.com/feedback/crazy_banana
+
+#### Response
+
+  * `200 OK` if the feedback has successfully been updated
+  * `400 BAD REQUEST` if the request data was malformed
+  * `404 NOT FOUND` for unknown feedback identifiers
