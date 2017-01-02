@@ -1,3 +1,4 @@
+from flask import jsonify, abort
 from flask.views import MethodView
 
 from kudos import app
@@ -6,9 +7,9 @@ from kudos import app
 class FeedbackApi(MethodView):
     def get(self, feedback_id):
         if feedback_id is None:
-            return 'feedback'
+            return jsonify({'feedbacks', []})
         else:
-            return feedback_id
+            abort(404)
 
     def post(self):
         pass
