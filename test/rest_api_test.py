@@ -4,6 +4,7 @@ from flask import json
 
 from kudos import app, db
 
+
 class RestApiTestCase(unittest.TestCase):
     def setUp(self):
         app.config.from_object('config.TestingConfig')
@@ -23,5 +24,3 @@ class RestApiTestCase(unittest.TestCase):
         assert response.status_code == 200
         assert response.mimetype == 'application/json'
         assert json.loads(response.data) == {"feedbacks": []}
-
-
