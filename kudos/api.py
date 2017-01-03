@@ -7,7 +7,7 @@ from kudos import app
 class FeedbackApi(MethodView):
     def get(self, feedback_id):
         if feedback_id is None:
-            return jsonify({'feedbacks', []})
+            return jsonify({'feedbacks': []})
         else:
             abort(404)
 

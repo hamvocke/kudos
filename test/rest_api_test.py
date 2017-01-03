@@ -1,5 +1,7 @@
 import unittest
 
+from flask import json
+
 from kudos import app, db
 
 class RestApiTestCase(unittest.TestCase):
@@ -20,6 +22,6 @@ class RestApiTestCase(unittest.TestCase):
         response = self.app.get("/api/feedback/")
         assert response.status_code == 200
         assert response.mimetype == 'application/json'
-        assert response.data == b'[]\n'
+        assert json.loads(response.data) == {"feedbacks": []}
 
 
