@@ -16,11 +16,23 @@ class RestApiTestCase(unittest.TestCase):
         db.drop_all()
 
     def test_should_return_404_for_unknown_feedback(self):
-        response = self.app.get("/api/feedback/unknown")
+        response = self.app.get('/api/feedback/unknown')
         assert response.status_code == 404
 
     def test_should_return_list_of_all_feedbacks(self):
-        response = self.app.get("/api/feedback/")
+        response = self.app.get('/api/feedback/')
         assert response.status_code == 200
         assert response.mimetype == 'application/json'
-        assert json.loads(response.data) == {"feedbacks": []}
+        assert json.loads(response.data) == {'feedbacks': []}
+
+    def test_should_return_400_for_empty_create_request(self):
+        response = self.app.post('/api/feedback/', data=None)
+        assert response.status_code == 400
+
+    def test_should_create_feedback(self):
+        feedback = dict(
+            name='My Test Feedback',
+            options=[1, 2]
+        )
+        response = self.app.post('/api/feedback/', data=feedback)
+        assert response.status_code == 201

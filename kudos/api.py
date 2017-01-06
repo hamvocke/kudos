@@ -1,7 +1,7 @@
-from flask import jsonify, abort
+from flask import jsonify, abort, request
 from flask.views import MethodView
 
-from kudos import app
+from kudos import app, models
 
 
 class FeedbackApi(MethodView):
@@ -12,7 +12,9 @@ class FeedbackApi(MethodView):
             abort(404)
 
     def post(self):
-        pass
+        if not request.form:
+            abort(400)
+        return jsonify({'feedback': ''}), 201
 
     def put(self, feedback_id):
         pass
