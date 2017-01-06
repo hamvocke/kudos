@@ -36,3 +36,4 @@ class RestApiTestCase(unittest.TestCase):
         )
         response = self.app.post('/api/feedback', data=feedback)
         assert response.status_code == 201
+        assert json.loads(response.data) == {'name': 'My Test Feedback', 'options': []}

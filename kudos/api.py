@@ -1,7 +1,7 @@
 from flask import jsonify, abort, request
 from flask.views import MethodView
 
-from kudos import app, models
+from kudos import app, models, db
 
 
 class FeedbackListApi(MethodView):
@@ -9,9 +9,14 @@ class FeedbackListApi(MethodView):
         return jsonify({'feedbacks': []})
 
     def post(self):
-        if not request.form:
+        if not request.form or not request.form['name']:
             abort(400)
-        return jsonify({'feedback': ''}), 201
+
+        feedback = models.Feedback(request.form['name'])
+        db.session.add(feedback)
+        db.session.commit()
+
+        return jsonify(feedback.serialize()), 201
 
 
 class FeedbackApi(MethodView):
@@ -24,5 +29,5 @@ class FeedbackApi(MethodView):
 
 feedbacklist_view = FeedbackListApi.as_view('feedbacklist_api')
 feedback_view = FeedbackApi.as_view('feedback_api')
-app.add_url_rule('/api/feedback', view_func=feedbacklist_view, methods=['GET', 'POST',])
+app.add_url_rule('/api/feedback', view_func=feedbacklist_view, methods=['GET', 'POST', ])
 app.add_url_rule('/api/feedback/<string:feedback_id>', view_func=feedback_view, methods=['GET', 'PUT', ])

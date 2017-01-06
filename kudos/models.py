@@ -11,6 +11,12 @@ class Feedback(db.Model):
     votes = db.relationship('Vote', backref='feedback')
     options = db.relationship('Option', secondary=options_feedback, backref=db.backref('feedbacks', lazy='dynamic'))
 
+    def serialize(self):
+        return {
+            'name': self.name,
+            'options': [option.serialize() for option in self.options]
+        }
+
     def __init__(self, name, options=[]):
         self.name = name
         self.options = options
@@ -38,6 +44,9 @@ class Option(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     feedback_id = db.Column(db.Integer, db.ForeignKey('option_set.id'))
     description = db.Column(db.String(50), unique=True)
+
+    def serialize(self):
+        return {'description': self.description}
 
     def __init__(self, description):
         self.description = description
