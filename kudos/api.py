@@ -12,7 +12,8 @@ class FeedbackListApi(MethodView):
         if not request.form or not request.form['name']:
             abort(400)
 
-        feedback = models.Feedback(request.form['name'])
+        options = [models.Option.query.get(option_id) for option_id in request.form.getlist('options')]
+        feedback = models.Feedback(request.form['name'], options)
         db.session.add(feedback)
         db.session.commit()
 

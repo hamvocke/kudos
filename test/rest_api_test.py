@@ -2,7 +2,7 @@ import unittest
 
 from flask import json
 
-from kudos import app, db
+from kudos import app, db, models
 
 
 class RestApiTestCase(unittest.TestCase):
@@ -30,10 +30,25 @@ class RestApiTestCase(unittest.TestCase):
         assert response.status_code == 400
 
     def test_should_create_feedback(self):
-        feedback = dict(
-            name='My Test Feedback',
-            options=[1, 2]
-        )
+        option1 = self.create_option('some option')
+        option2 = self.create_option('another option')
+
+        feedback = {
+            'name': 'My Test Feedback',
+            'options': [option1.id, option2.id]
+        }
         response = self.app.post('/api/feedback', data=feedback)
         assert response.status_code == 201
-        assert json.loads(response.data) == {'name': 'My Test Feedback', 'options': []}
+        assert json.loads(response.data) == {
+            'name': 'My Test Feedback',
+            'options': [
+                {'description': 'some option'},
+                {'description': 'another option'}
+            ]
+        }
+
+    def create_option(self, description):
+        option = models.Option(description)
+        db.session.add(option)
+        db.session.commit()
+        return option
