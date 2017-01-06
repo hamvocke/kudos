@@ -20,13 +20,13 @@ class RestApiTestCase(unittest.TestCase):
         assert response.status_code == 404
 
     def test_should_return_list_of_all_feedbacks(self):
-        response = self.app.get('/api/feedback/')
+        response = self.app.get('/api/feedback')
         assert response.status_code == 200
         assert response.mimetype == 'application/json'
         assert json.loads(response.data) == {'feedbacks': []}
 
     def test_should_return_400_for_empty_create_request(self):
-        response = self.app.post('/api/feedback/', data=None)
+        response = self.app.post('/api/feedback', data=None)
         assert response.status_code == 400
 
     def test_should_create_feedback(self):
@@ -34,5 +34,5 @@ class RestApiTestCase(unittest.TestCase):
             name='My Test Feedback',
             options=[1, 2]
         )
-        response = self.app.post('/api/feedback/', data=feedback)
+        response = self.app.post('/api/feedback', data=feedback)
         assert response.status_code == 201
