@@ -29,6 +29,14 @@ class RestApiTestCase(unittest.TestCase):
         response = self.app.post('/api/feedback', data=None)
         assert response.status_code == 400
 
+    def test_should_return_400_for_unknown_option(self):
+        feedback = {
+            'name': 'My Test Feedback',
+            'options': [-1]
+        }
+        response = self.app.post('/api/feedback', data=feedback)
+        assert response.status_code == 400
+
     def test_should_create_feedback(self):
         option1 = self.create_option('some option')
         option2 = self.create_option('another option')
