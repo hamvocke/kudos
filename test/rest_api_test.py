@@ -12,8 +12,10 @@ def create_option(description):
     return option
 
 
-def create_feedback(name, options):
+def create_feedback(name, options, votes=[]):
     feedback = models.Feedback(name, options)
+    if len(votes) > 0:
+        feedback.votes = [models.Vote(feedback.id, vote.description) for vote in votes]
     db.session.add(feedback)
     db.session.commit()
     return feedback
@@ -35,12 +37,24 @@ class RestApiTestCase(unittest.TestCase):
 
     def test_should_return_single_feedback(self):
         option = create_option('some option')
-        created_feedback = create_feedback('some-feedback', [option])
+        created_feedback = create_feedback('some-feedback', [option], [option])
 
         response = self.app.get('/api/feedback/{}'.format(created_feedback.id))
         parsed_response = json.loads(response.data)
         assert response.status_code == 200
-        assert parsed_response == created_feedback.serialize()
+        assert parsed_response == {
+            'id': 1,
+            'name': 'some-feedback',
+            'options': [
+                {
+                    'id': 1,
+                    'description': 'some option'
+                }
+            ],
+            'votes': [
+                {'option': 'some option'}
+            ]
+        }
 
     def test_should_return_feedback_list(self):
         option = create_option('some option')
@@ -115,7 +129,7 @@ class RestApiTestCase(unittest.TestCase):
 
         assert response.status_code == 404
 
-    def test_should_return_40_on_missing_vote_option(self):
+    def test_should_return_400_on_missing_vote_option(self):
         option = create_option('some option')
         feedback = create_feedback('soome feedback', [option])
 

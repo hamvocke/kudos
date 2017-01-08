@@ -15,7 +15,8 @@ class Feedback(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'options': [option.serialize() for option in self.options]
+            'options': [option.serialize() for option in self.options],
+            'votes': [vote.serialize() for vote in self.votes]
         }
 
     def __init__(self, name, options=[]):
@@ -31,6 +32,11 @@ class Vote(db.Model):
     feedback_id = db.Column(db.Integer, db.ForeignKey('feedback.id'))
     option = db.Column(db.String(50))
     text = db.Column(db.String(250))
+
+    def serialize(self):
+        return {
+            'option': self.option
+        }
 
     def __init__(self, feedback_id, option, text=None):
         self.feedback_id = feedback_id
