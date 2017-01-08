@@ -24,9 +24,13 @@ class RestApiTestCase(unittest.TestCase):
         created_feedback = self.create_feedback('some-feedback', [option])
 
         response = self.app.get('/api/feedback/{}'.format(created_feedback['id']))
+        parsed_response = json.loads(response.data)
         assert response.status_code == 200
+        assert parsed_response['id'] == created_feedback['id']
+        assert parsed_response['name'] == created_feedback['name']
+        assert parsed_response['options'] == created_feedback['options']
 
-    def test_should_return_list_of_all_feedbacks(self):
+    def test_should_return_feedback_list(self):
         response = self.app.get('/api/feedback')
         assert response.status_code == 200
         assert response.mimetype == 'application/json'
