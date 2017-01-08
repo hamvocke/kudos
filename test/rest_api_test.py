@@ -43,10 +43,20 @@ class RestApiTestCase(unittest.TestCase):
         assert parsed_response == created_feedback.serialize()
 
     def test_should_return_feedback_list(self):
+        option = create_option('some option')
+        some_feedback = create_feedback('some feedback', [option])
+        another_feedback = create_feedback('another feedback', [option])
+
         response = self.app.get('/api/feedback')
+
         assert response.status_code == 200
         assert response.mimetype == 'application/json'
-        assert json.loads(response.data) == {'feedbacks': []}
+        assert json.loads(response.data) == {
+            'feedbacks': [
+                some_feedback.serialize(),
+                another_feedback.serialize()
+            ]
+        }
 
     def test_should_return_400_for_empty_create_request(self):
         response = self.app.post('/api/feedback', data=None)

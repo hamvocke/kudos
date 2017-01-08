@@ -6,7 +6,8 @@ from kudos import app, models, db
 
 class FeedbackListApi(MethodView):
     def get(self):
-        return jsonify({'feedbacks': []})
+        feedback_list = models.Feedback.query.all()
+        return jsonify({'feedbacks': [feedback.serialize() for feedback in feedback_list]})
 
     def post(self):
         if not request.form or not request.form['name']:
