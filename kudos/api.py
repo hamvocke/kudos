@@ -10,11 +10,11 @@ class FeedbackListApi(MethodView):
 
     def post(self):
         if not request.form or not request.form['name']:
-            abort(400)
+            abort(400, 'no feedback data provided')
 
         options = [models.Option.query.get(option_id) for option_id in request.form.getlist('options')]
         if None in options:
-            abort(400)
+            abort(400, 'invalid option')
 
         feedback = models.Feedback(request.form['name'], options)
         db.session.add(feedback)
@@ -25,7 +25,12 @@ class FeedbackListApi(MethodView):
 
 class FeedbackApi(MethodView):
     def get(self, feedback_id):
-        abort(404)
+        feedback = models.Feedback.query.get(feedback_id)
+
+        if feedback is None:
+            abort(404)
+
+        return jsonify(feedback.serialize())
 
     def put(self, feedback_id):
         pass

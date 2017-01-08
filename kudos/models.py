@@ -1,8 +1,8 @@
 from kudos import db
 
 options_feedback = db.Table('feedback_options',
-                   db.Column('feedback_id', db.Integer, db.ForeignKey('feedback.id')),
-                   db.Column('option_id', db.Integer, db.ForeignKey('option.id')))
+                            db.Column('feedback_id', db.Integer, db.ForeignKey('feedback.id')),
+                            db.Column('option_id', db.Integer, db.ForeignKey('option.id')))
 
 
 class Feedback(db.Model):
@@ -13,6 +13,7 @@ class Feedback(db.Model):
 
     def serialize(self):
         return {
+            'id': self.id,
             'name': self.name,
             'options': [option.serialize() for option in self.options]
         }
@@ -46,7 +47,10 @@ class Option(db.Model):
     description = db.Column(db.String(50), unique=True)
 
     def serialize(self):
-        return {'description': self.description}
+        return {
+            'id': self.id,
+            'description': self.description
+        }
 
     def __init__(self, description):
         self.description = description
@@ -66,4 +70,3 @@ class OptionSet(db.Model):
 
     def __repr__(self):
         return '<OptionSet {}>'.format(self.name)
-
