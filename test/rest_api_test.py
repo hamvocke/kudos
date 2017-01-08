@@ -85,3 +85,40 @@ class RestApiTestCase(unittest.TestCase):
         assert parsed_response['id'] is not None
         assert parsed_response['name'] == 'My Test Feedback'
         assert len(parsed_response['options']) == 2
+
+    def test_should_vote_on_feedback(self):
+        option = create_option('some option')
+        feedback = create_feedback('soome feedback', [option])
+
+        vote_data = {'option': option.id}
+        response = self.app.post('/api/feedback/{}/vote'.format(feedback.id), data=vote_data)
+
+        assert response.status_code == 201
+
+    def test_should_save_vote_on_feedback(self):
+        option = create_option('some option')
+        feedback = create_feedback('some feedback', [option])
+        feedback_id = feedback.id
+
+        vote_data = {'option': option.id}
+        self.app.post('/api/feedback/{}/vote'.format(feedback.id), data=vote_data)
+
+        vote = models.Vote.query.filter_by(feedback_id=feedback_id).first()
+        assert vote is not None
+
+    def test_should_return_404_on_unknown_vote_option(self):
+        option = create_option('some option')
+        feedback = create_feedback('soome feedback', [option])
+
+        vote_data = {'option': 99}
+        response = self.app.post('/api/feedback/{}/vote'.format(feedback.id), data=vote_data)
+
+        assert response.status_code == 404
+
+    def test_should_return_40_on_missing_vote_option(self):
+        option = create_option('some option')
+        feedback = create_feedback('soome feedback', [option])
+
+        response = self.app.post('/api/feedback/{}/vote'.format(feedback.id), data=None)
+
+        assert response.status_code == 400
