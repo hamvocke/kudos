@@ -51,4 +51,4 @@ def vote(name, option_id):
     db.session.commit()
 
     flash('Thanks for your feedback!')
-    return render_template('feedback.html', feedback=feedback)
+    return redirect(url_for('feedback', feedback_id=feedback.id))
