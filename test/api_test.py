@@ -74,7 +74,8 @@ class ApiTestCase(unittest.TestCase):
 
     def test_should_flash_message_after_voting(self):
         save_feedback('somefeedback', self.option_set)
-        response = self.app.post('/feedback/somefeedback/{}'.format(self.option_set.options[0].id), follow_redirects=True)
+        response = self.app.post('/feedback/somefeedback/{}'.format(self.option_set.options[0].id),
+                                 follow_redirects=True)
         assert response.status_code == 200
         assert b"Thanks for your feedback!" in response.data
 
