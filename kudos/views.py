@@ -17,7 +17,7 @@ def index():
         db.session.add(feedback)
         db.session.commit()
         flash('Created new feedback')
-        return redirect(url_for('feedback', name=feedback.name))
+        return redirect(url_for('feedback', feedback_id=feedback.id))
     return render_template('index.html', form=form)
 
 
@@ -30,9 +30,11 @@ def all_feedback():
     return render_template('feedbacks.html', feedbacks=feedbacks)
 
 
-@app.route('/feedback/<string:name>', methods=['GET'])
-def feedback(name):
-    feedback = Feedback.query.filter_by(name=name).first_or_404()
+@app.route('/feedback/<int:feedback_id>', methods=['GET'])
+def feedback(feedback_id):
+    feedback = Feedback.query.get(feedback_id)
+    if feedback is None:
+        abort(404)
     return render_template('feedback.html', feedback=feedback)
 
 

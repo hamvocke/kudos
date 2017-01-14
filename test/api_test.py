@@ -7,6 +7,7 @@ def save_feedback(name, option_set=None):
     feedback = Feedback(name, option_set.options if option_set is not None else [])
     db.session.add(feedback)
     db.session.commit()
+    return feedback
 
 
 def save_option_set(name, options):
@@ -62,10 +63,14 @@ class ApiTestCase(unittest.TestCase):
         assert b"anotherfeedback" in response.data
 
     def test_should_get_single_feedback(self):
-        save_feedback('somefeedback')
-        response = self.app.get('/feedback/somefeedback')
+        feedback = save_feedback('somefeedback')
+        response = self.app.get('/feedback/{}'.format(feedback.id))
         assert response.status_code == 200
         assert b"<h1>somefeedback</h1>" in response.data
+
+    def test_should_return_404_for_unknown_feedback(self):
+        response = self.app.get('/feedback/unknown')
+        assert response.status_code == 404
 
     def test_should_flash_message_after_voting(self):
         save_feedback('somefeedback', self.option_set)
