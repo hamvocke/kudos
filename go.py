@@ -68,6 +68,11 @@ def run(environment):
 
 
 @cli.command()
+def watch_sass():
+    call(['sass', '--watch', 'kudos/static/sass:kudos/static/css'])
+
+
+@cli.command()
 def initdb():
     marker()
     click.echo('Initialising database')
