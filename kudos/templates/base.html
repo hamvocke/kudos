@@ -2,33 +2,46 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>Kudos - Get Feedback Faster</title>
-  <meta name="description" content="">
-  <meta name="author" content="Ham Vocke">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Kudos - Get Feedback Faster</title>
+    <meta name="description" content="">
+    <meta name="author" content="Ham Vocke">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300i,800" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300i,800" rel="stylesheet" type="text/css">
 
-  <link rel="stylesheet" href="{{url_for('static', filename='css/font-awesome.min.css')}}">
-  <link rel="stylesheet" href="{{url_for('static', filename='css/normalize.css')}}">
-  <link rel="stylesheet" href="{{url_for('static', filename='css/skeleton.css')}}">
-  <link rel="stylesheet" href="{{url_for('static', filename='css/kudos.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/normalize.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/skeleton.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/kudos.css')}}">
 
-  <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="/favicon.png">
 </head>
 
 <body>
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul class="messages">
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
+<header>
+    <div class="container">
+        <div id="logo"><i class="fa fa-heart-o"></i>&nbsp;Kudos</div>
 
-  {% block body %}{% endblock %}
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/feedback">Feedback</a></li>
+                <li><a href="/login">Login</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+{% block body %}{% endblock %}
 </body>
 </html>
