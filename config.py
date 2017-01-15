@@ -5,6 +5,7 @@ class Config(object):
     DEBUG = False
     TESTING = False
     SQLALCHEMY_DATABASE_URI = 'postgresql://kudos:password@localhost/kudos'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = True
     SECRET_KEY = 'someSecretKey'
     SENTRY_DSN = 'someSentryDsn'
