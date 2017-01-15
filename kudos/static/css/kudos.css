@@ -49,6 +49,9 @@ header {
     background-color: #fed766;
     border: 1px solid #fed766;
     color: #292f36; }
+    #hero button:hover, #hero button:active, #hero button:focus {
+      background-color: #fcbc02;
+      border-color: #fcbc02; }
 
 #messages ul {
   display: inline; }
