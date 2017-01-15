@@ -73,26 +73,26 @@ class ApiTestCase(unittest.TestCase):
         assert response.status_code == 404
 
     def test_should_flash_message_after_voting(self):
-        save_feedback('somefeedback', self.option_set)
-        response = self.app.post('/feedback/somefeedback/{}'.format(self.option_set.options[0].id),
+        feedback = save_feedback('somefeedback', self.option_set)
+        response = self.app.post('/feedback/{}/{}'.format(feedback.id, self.option_set.options[0].id),
                                  follow_redirects=True)
         assert response.status_code == 200
         assert b"Thanks for your feedback!" in response.data
 
     def test_should_return_error_for_invalid_vote(self):
-        save_feedback('somefeedback', self.option_set)
-        response = self.app.post('/feedback/somefeedback/{}'.format(99))
+        feedback = save_feedback('somefeedback', self.option_set)
+        response = self.app.post('/feedback/{}/{}'.format(feedback.id, 99))
         assert response.status_code == 400
         assert b"Option (id=99) is unknown for this feedback" in response.data
 
     def test_should_save_vote(self):
-        save_feedback('somefeedback', self.option_set)
-        self.app.post('/feedback/somefeedback/{}'.format(self.option_set.options[0].id))
+        feedback = save_feedback('somefeedback', self.option_set)
+        self.app.post('/feedback/{}/{}'.format(feedback.id, self.option_set.options[0].id))
         saved_votes = Vote.query.all()
         assert len(saved_votes) == 1
         assert saved_votes[0].option == ':('
 
-    def test_should_redirect_after_post(self):
-        save_feedback('somefeedback', self.option_set)
-        response = self.app.post('/feedback/somefeedback/{}'.format(self.option_set.options[0].id))
+    def test_should_redirect_after_vote(self):
+        feedback = save_feedback('somefeedback', self.option_set)
+        response = self.app.post('/feedback/{}/{}'.format(feedback.id, self.option_set.options[0].id))
         assert response.status_code == 302
