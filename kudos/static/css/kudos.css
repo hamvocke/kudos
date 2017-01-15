@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,800");
 body, html {
-  color: #2C3E50;
-  background-color: #ECF0F1;
+  color: #292f36;
+  background-color: #fafafa;
   font-family: "Open Sans", sans-serif; }
 
 header {
-  background-color: white;
+  background-color: #CC333F;
+  color: #fafafa;
   padding: 8px;
-  font-size: 1.2em;
-  margin-bottom: 24px; }
+  font-size: 1.2em; }
   header #logo {
     display: inline-block;
     font-size: 1.8em;
@@ -19,25 +19,33 @@ header {
       font-size: 0.8em; }
   header nav {
     display: inline-block;
-    vertical-align: middle; }
+    vertical-align: middle;
+    font-weight: 300; }
   header ul {
     display: inline; }
   header li {
     display: inline; }
     header li a {
+      color: #fafafa;
       text-decoration: none;
-      padding: 12px;
+      padding: 24px;
       height: 100%; }
+    header li a:hover, header li a:focus, header li a:active {
+      color: #ebadb2; }
 
 #hero {
-  padding: 30px; }
-
-#hero h1 {
-  font-weight: 800; }
-
-#hero h2 {
-  font-weight: 300;
-  font-style: italic; }
+  padding: 30px;
+  background-color: #CC333F;
+  color: #fafafa; }
+  #hero h1 {
+    font-weight: 800; }
+  #hero h2 {
+    font-weight: 300;
+    font-style: italic; }
+  #hero button {
+    background-color: #fed766;
+    border: 1px solid #fed766;
+    color: #292f36; }
 
 #messages ul {
   display: inline; }
@@ -45,7 +53,8 @@ header {
   display: inline; }
 #messages .message {
   display: block;
-  background-color: lightcoral;
+  background-color: #CC333F;
+  border-bottom: 3px solid #521419;
   font-size: 1.2em;
   color: white;
   border-radius: 8px;

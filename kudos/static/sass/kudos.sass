@@ -1,15 +1,24 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,800')
 
+$red: #CC333F
+$pink: #ff4d80
+$sun: #fed766
+$blue: #00A0B0
+$gray: #292f36
+$white: #fafafa
+$ivory: #fbf5f3
+$slate: #93b7be
+
 body, html
-    color: #2C3E50
-    background-color: #ECF0F1
+    color: $gray
+    background-color: $white
     font-family: 'Open Sans', sans-serif
 
 header
-    background-color: white
+    background-color: $red
+    color: $white
     padding: 8px
     font-size: 1.2em
-    margin-bottom: 24px
 
     #logo
         display: inline-block
@@ -24,6 +33,7 @@ header
     nav
         display: inline-block
         vertical-align: middle
+        font-weight: 300
 
     ul
         display: inline
@@ -32,21 +42,30 @@ header
         display: inline
 
         a
+            color: $white
             text-decoration: none
-            padding: 12px
+            padding: 24px
             height: 100%
+
+        a:hover, a:focus, a:active
+            color: lighten($red, 30%)
 
 #hero
     padding: 30px
+    background-color: $red
+    color: $white
 
-#hero h1
-    font-weight: 800
+    h1
+        font-weight: 800
 
-#hero h2
-    font-weight: 300
-    font-style: italic
+    h2
+        font-weight: 300
+        font-style: italic
 
-#hero button
+    button
+        background-color: $sun
+        border: 1px solid $sun
+        color: $gray
 
 #messages
     ul
@@ -57,7 +76,8 @@ header
 
     .message
         display: block
-        background-color: lightcoral
+        background-color: $red
+        border-bottom: 3px solid darken($red, 30%)
         font-size: 1.2em
         color: white
         border-radius: 8px
