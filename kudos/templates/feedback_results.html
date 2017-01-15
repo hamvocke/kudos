@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block body %}
+<section id="feedback" class="container">
+  <div class="feedback">
+    <h1>Your feedback for {{ feedback.name }}</h1>
+
+    {% for vote in feedback.votes %}
+      <div class="vote">{{ vote.option }}</div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

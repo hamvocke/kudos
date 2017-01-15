@@ -96,3 +96,16 @@ class ApiTestCase(unittest.TestCase):
         feedback = save_feedback('somefeedback', self.option_set)
         response = self.app.post('/feedback/{}/{}'.format(feedback.id, self.option_set.options[0].id))
         assert response.status_code == 302
+
+    def test_should_show_feedback_for_creator(self):
+        feedback = save_feedback('somefeedback', self.option_set)
+        self.app.post('/feedback/{}/{}'.format(feedback.id, self.option_set.options[0].id))
+
+        response = self.app.get('/feedback/{}/results'.format(feedback.id))
+        expected_body = "Your feedback for {}".format(feedback.name)
+        assert response.status_code == 200
+        assert expected_body in response.data.decode('utf-8')
+
+    def test_should_return_404_for_unknown_feedback(self):
+        response = self.app.get('/feedback/{}/results'.format('unknown'))
+        assert response.status_code == 404

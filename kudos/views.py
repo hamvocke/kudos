@@ -56,3 +56,13 @@ def vote(feedback_id, option_id):
 
     flash('Thanks for your feedback!')
     return redirect(url_for('feedback', feedback_id=feedback.id))
+
+
+@app.route('/feedback/<int:feedback_id>/results', methods=['GET'])
+def results(feedback_id):
+    feedback = Feedback.query.get(feedback_id)
+
+    if feedback is None:
+        abort(404)
+
+    return render_template('feedback_results.html', feedback=feedback)
