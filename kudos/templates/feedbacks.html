@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block body %}
-<h1>Feedback Rounds</h1>
-<section id="feedback">
-  {% for feedback in feedbacks %}
-    <div class="feedbackRound">{{ feedback.name }}</div>
-  {% endfor %}
+<section id="feedback" class="container">
+    <h1>All Feedback Rounds</h1>
+    {% for feedback in feedbacks %}
+    <div class="feedback"><a href="{{ url_for('feedback', feedback_id=feedback.id)}}">{{ feedback.name }}</a></div>
+    {% endfor %}
 </section>
 {% endblock %}
