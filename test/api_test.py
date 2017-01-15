@@ -1,6 +1,7 @@
+import unittest
+
 from kudos import app, db
 from kudos.models import Feedback, OptionSet, Option, Vote
-import unittest
 
 
 def save_feedback(name, option_set=None):
@@ -111,6 +112,6 @@ class ApiTestCase(unittest.TestCase):
         assert response.status_code == 200
         assert expected_body in response.data.decode('utf-8')
 
-    def test_should_return_404_for_unknown_feedback(self):
+    def test_should_return_404_for_unknown_feedback_results(self):
         response = self.app.get('/feedback/{}/results'.format('unknown'))
         assert response.status_code == 404
