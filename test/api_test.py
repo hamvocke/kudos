@@ -39,17 +39,22 @@ class ApiTestCase(unittest.TestCase):
         assert response.status_code == 200
         assert b"<h1>Kudos</h1>" in response.data
 
+    def test_should_show_render_feedback_page(self):
+        response = self.app.get("/feedback/create")
+        assert response.status_code == 200
+        assert b"Get your personal feedback" in response.data
+
     def test_should_redirect_to_feedback_page_after_create(self):
-        response = self.app.post("/", data=self.feedback_dict, follow_redirects=True)
+        response = self.app.post("/feedback/create", data=self.feedback_dict, follow_redirects=True)
         assert response.status_code == 200
         assert b"<h1>test</h1>" in response.data
 
     def test_should_flash_message_after_create(self):
-        response = self.app.post("/", data=self.feedback_dict, follow_redirects=True)
+        response = self.app.post("/feedback/create", data=self.feedback_dict, follow_redirects=True)
         assert b"Created new feedback" in response.data
 
     def test_should_save_feedback(self):
-        self.app.post("/", data=self.feedback_dict, follow_redirects=True)
+        self.app.post("/feedback/create", data=self.feedback_dict, follow_redirects=True)
         saved_feedback = Feedback.query.first()
         assert saved_feedback.name == 'test'
         assert len(saved_feedback.options) == 2

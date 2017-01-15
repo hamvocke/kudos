@@ -45,11 +45,15 @@ header {
   #hero h2 {
     font-weight: 300;
     font-style: italic; }
-  #hero button {
+  #hero .button {
     background-color: #fed766;
     border: 1px solid #fed766;
-    color: #292f36; }
-    #hero button:hover, #hero button:active, #hero button:focus {
+    color: #292f36;
+    font-size: 1.4em;
+    font-weight: 800;
+    padding: 8px 24px;
+    height: 100%; }
+    #hero .button:hover, #hero .button:active, #hero .button:focus {
       background-color: #fcbc02;
       border-color: #fcbc02; }
 

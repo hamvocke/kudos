@@ -6,8 +6,22 @@ from kudos.forms import CreateFeedbackForm
 from kudos.models import Feedback, OptionSet, Option, Vote
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
+    return render_template('index.html')
+
+
+@app.route('/feedback', methods=['GET'])
+def all_feedback():
+    feedbacks = Feedback.query.all()
+    if len(feedbacks) == 0:
+        abort(404)
+
+    return render_template('feedbacks.html', feedbacks=feedbacks)
+
+
+@app.route('/feedback/create', methods=['POST', 'GET'])
+def create_feedback():
     form = CreateFeedbackForm()
     form.options.choices = [(option.id, option.name) for option in OptionSet.query.all()]
     if form.validate_on_submit():
@@ -18,16 +32,7 @@ def index():
         db.session.commit()
         flash('Created new feedback')
         return redirect(url_for('feedback', feedback_id=feedback.id))
-    return render_template('index.html', form=form)
-
-
-@app.route('/feedback', methods=['GET'])
-def all_feedback():
-    feedbacks = Feedback.query.all()
-    if len(feedbacks) == 0:
-        abort(404)
-
-    return render_template('feedbacks.html', feedbacks=feedbacks)
+    return render_template('create_feedback.html', form=form)
 
 
 @app.route('/feedback/<int:feedback_id>', methods=['GET'])

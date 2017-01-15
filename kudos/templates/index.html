@@ -2,36 +2,9 @@
 {% block body %}
 <section id="hero">
     <div class="container">
-        <div class="row">
-            <div class="six columns">
-                <h1>Kudos</h1>
-                <h2>Get Feedback Faster</h2>
-            </div>
-
-            <div class="six columns">
-                <form action="{{ url_for('index') }}" method="post">
-                    {{ form.hidden_tag() }}
-                    {{ form.name.label }}
-                    {{ form.name(placeholder='My retrospective', required='required') }}
-                    {% for error in form.name.errors %}
-                    <div class="form_error">{{ error }}</div>
-                    {% endfor %}
-
-                    {{ form.email.label }}
-                    {{ form.email(placeholder='me@example.com') }}
-                    {% for error in form.email.errors %}
-                    <div class="form_error">{{ error }}</div>
-                    {% endfor %}
-
-                    {{ form.options.label }}
-                    {{ form.options() }}
-                    <div>
-                        <button class="button-primary" type="submit">Start now!</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
+        <h1>Kudos</h1>
+        <h2>Get Feedback Faster</h2>
+        <a href="/feedback/create" class="button">Get started!</a>
     </div>
 </section>
 {% endblock %}
