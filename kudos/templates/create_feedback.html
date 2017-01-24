@@ -6,7 +6,7 @@
         {{ form.hidden_tag() }}
 
         <div class="row">
-            <div class="one-half column">
+            <div class="two-thirds column">
                 {{ form.name.label }}
                 {{ form.name(placeholder='My retrospective', required='required', class_='u-full-width') }}
                 {% for error in form.name.errors %}
@@ -14,13 +14,13 @@
                 {% endfor %}
             </div>
 
-            <div class="one-half column">
+            <div class="one-third column">
                 <p class="hint">Use something short and descriptive</p>
             </div>
         </div>
 
         <div class="row">
-            <div class="one-half column">
+            <div class="two-thirds  column">
                 {{ form.description.label }}
                 {{ form.description(class_='u-full-width') }}
                 {% for error in form.description.errors %}
@@ -28,14 +28,14 @@
                 {% endfor %}
             </div>
 
-            <div class="one-half column">
+            <div class="one-third column">
                 <p class="hint">Send a little message to your participants to let them know what you want to receive
                     feedback about</p>
             </div>
         </div>
 
         <div class="row">
-            <div class="one-half column">
+            <div class="two-thirds column">
                 {{ form.email.label }}
                 {{ form.email(placeholder='me@example.com', class_='u-full-width') }}
                 {% for error in form.email.errors %}
@@ -43,7 +43,7 @@
                 {% endfor %}
             </div>
 
-            <div class="one-half column">
+            <div class="one-third column">
                 <p class="hint">We won't send spam, promised! We'll need this to send you an admin link that will show
                     the results of your feedback</p>
             </div>
