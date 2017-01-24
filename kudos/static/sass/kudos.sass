@@ -21,19 +21,19 @@ $slate: #93b7be
 body, html
     color: $gray
     background-color: $white
-    font-family: 'Open Sans', sans-serif
+    font-family: 'Nunito', sans-serif
 
 header
     background-color: $red
     color: $white
     padding: 8px
-    font-size: 1.2em
+    font-size: 1.4em
     font-family: 'Nunito', sans-serif
 
     #logo
         display: inline-block
-        font-size: 1.8em
-        font-weight: 300
+        font-size: 1.6em
+        font-weight: 400
         vertical-align: middle
         margin: 0 24px 0 0
 
@@ -63,6 +63,9 @@ header
 
         a:hover, a:focus, a:active
             color: lighten($red, 30%)
+
+.content
+    margin-top: 48px
 
 #hero
     padding: 30px
@@ -108,8 +111,21 @@ header
         padding: 8px 12px
 
 label
-    font-weight: 300
+    font-weight: 400
     font-size: 1.2em
+    display: inline-block
+
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select
+    font-size: 1.2em
+    height: 48px
 
 .form_error
     color: red
@@ -117,4 +133,21 @@ label
 
 .option
     display: inline-block
-    font-size: 1.4em
+
+.hint
+    padding-top: 32px
+    color: lighten($gray, 40%)
+
+.button.button-primary,
+button.button-primary,
+input.button-primary[type="submit"],
+input.button-primary[type="reset"],
+input.button-primary[type="button"]
+    background-color: $sun
+    border: 1px solid $sun
+    color: $gray
+
+    &:hover, &:active, &:focus
+        background-color: darken($sun, 20%)
+        border-color: darken($sun, 20%)
+        color: $gray

@@ -3,18 +3,18 @@
 body, html {
   color: #292f36;
   background-color: #fafafa;
-  font-family: "Open Sans", sans-serif; }
+  font-family: "Nunito", sans-serif; }
 
 header {
   background-color: #CC333F;
   color: #fafafa;
   padding: 8px;
-  font-size: 1.2em;
+  font-size: 1.4em;
   font-family: "Nunito", sans-serif; }
   header #logo {
     display: inline-block;
-    font-size: 1.8em;
-    font-weight: 300;
+    font-size: 1.6em;
+    font-weight: 400;
     vertical-align: middle;
     margin: 0 24px 0 0; }
     header #logo a {
@@ -37,6 +37,9 @@ header {
       height: 100%; }
     header li a:hover, header li a:focus, header li a:active {
       color: #ebadb2; }
+
+.content {
+  margin-top: 48px; }
 
 #hero {
   padding: 30px;
@@ -75,15 +78,56 @@ header {
   padding: 8px 12px; }
 
 label {
-  font-weight: 300;
-  font-size: 1.2em; }
+  font-weight: 400;
+  font-size: 1.2em;
+  display: inline-block; }
+
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  font-size: 1.2em;
+  height: 48px; }
 
 .form_error {
   color: red;
   font-size: 0.9em; }
 
 .option {
-  display: inline-block;
-  font-size: 1.4em; }
+  display: inline-block; }
+
+.hint {
+  padding-top: 32px;
+  color: #8794a4; }
+
+.button.button-primary,
+button.button-primary,
+input.button-primary[type="submit"],
+input.button-primary[type="reset"],
+input.button-primary[type="button"] {
+  background-color: #fed766;
+  border: 1px solid #fed766;
+  color: #292f36; }
+  .button.button-primary:hover, .button.button-primary:active, .button.button-primary:focus,
+  button.button-primary:hover,
+  button.button-primary:active,
+  button.button-primary:focus,
+  input.button-primary[type="submit"]:hover,
+  input.button-primary[type="submit"]:active,
+  input.button-primary[type="submit"]:focus,
+  input.button-primary[type="reset"]:hover,
+  input.button-primary[type="reset"]:active,
+  input.button-primary[type="reset"]:focus,
+  input.button-primary[type="button"]:hover,
+  input.button-primary[type="button"]:active,
+  input.button-primary[type="button"]:focus {
+    background-color: #fcbc02;
+    border-color: #fcbc02;
+    color: #292f36; }
 
 /*# sourceMappingURL=kudos.css.map */

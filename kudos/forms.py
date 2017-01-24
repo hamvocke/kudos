@@ -1,9 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField
-from wtforms.validators import DataRequired, Length, Email
+from wtforms import StringField, TextAreaField, SubmitField, RadioField
+from wtforms.validators import required, optional, Length, Email
 
 
 class CreateFeedbackForm(FlaskForm):
-    name = StringField('What are you collecting feedback for?', validators=[DataRequired(), Length(max=150)])
-    email = StringField('What is your email address?', validators=[DataRequired(), Email()])
-    options = SelectField('Feedback Options', coerce=int)
+    name = StringField('Title', validators=[required(), Length(max=150)])
+    description = TextAreaField('Description', validators=[optional(), Email()])
+    email = StringField('E-Mail', validators=[required(), Email()])
+    options = RadioField('Answers', coerce=int)
+    submit = SubmitField('Create Feedback')

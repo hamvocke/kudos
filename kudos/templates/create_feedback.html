@@ -1,25 +1,65 @@
 {% extends "base.html" %}
 {% block body %}
-<section class="container">
-    <h1>Get your personal feedback!</h1>
+<section class="container content">
+    <h1>Get your feedback. It's super simple!</h1>
     <form action="{{ url_for('create_feedback') }}" method="post">
         {{ form.hidden_tag() }}
-        {{ form.name.label }}
-        {{ form.name(placeholder='My retrospective', required='required') }}
-        {% for error in form.name.errors %}
-        <div class="form_error">{{ error }}</div>
-        {% endfor %}
 
-        {{ form.email.label }}
-        {{ form.email(placeholder='me@example.com') }}
-        {% for error in form.email.errors %}
-        <div class="form_error">{{ error }}</div>
-        {% endfor %}
+        <div class="row">
+            <div class="one-half column">
+                {{ form.name.label }}
+                {{ form.name(placeholder='My retrospective', required='required', class_='u-full-width') }}
+                {% for error in form.name.errors %}
+                <div class="form_error">{{ error }}</div>
+                {% endfor %}
+            </div>
 
-        {{ form.options.label }}
-        {{ form.options() }}
-        <div>
-            <button class="button-primary" type="submit">Start now!</button>
+            <div class="one-half column">
+                <p class="hint">Use something short and descriptive</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="one-half column">
+                {{ form.description.label }}
+                {{ form.description(class_='u-full-width') }}
+                {% for error in form.description.errors %}
+                <div class="form_error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="one-half column">
+                <p class="hint">Send a little message to your participants to let them know what you want to receive
+                    feedback about</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="one-half column">
+                {{ form.email.label }}
+                {{ form.email(placeholder='me@example.com', class_='u-full-width') }}
+                {% for error in form.email.errors %}
+                <div class="form_error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="one-half column">
+                <p class="hint">We won't send spam, promised! We'll need this to send you an admin link that will show
+                    the results of your feedback</p>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for subfield in form.options %}
+            <div class="option">
+                <span>{{ subfield }}</span>
+                <span>{{ subfield.label }}</span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="row">
+            {{ form.submit(class_='button-primary') }}
         </div>
     </form>
 </section>
