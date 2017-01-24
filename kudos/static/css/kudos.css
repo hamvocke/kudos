@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,800");
+@import url("https://fonts.googleapis.com/css?family=Nunito:200,400,800");
 body, html {
   color: #292f36;
   background-color: #fafafa;
@@ -8,7 +9,8 @@ header {
   background-color: #CC333F;
   color: #fafafa;
   padding: 8px;
-  font-size: 1.2em; }
+  font-size: 1.2em;
+  font-family: "Nunito", sans-serif; }
   header #logo {
     display: inline-block;
     font-size: 1.8em;
@@ -39,19 +41,20 @@ header {
 #hero {
   padding: 30px;
   background-color: #CC333F;
-  color: #fafafa; }
+  color: #fafafa;
+  text-align: center;
+  font-family: "Nunito", sans-serif; }
   #hero h1 {
     font-weight: 800; }
   #hero h2 {
-    font-weight: 300;
-    font-style: italic; }
+    font-weight: 300; }
   #hero .button {
     background-color: #fed766;
     border: 1px solid #fed766;
     color: #292f36;
-    font-size: 1.4em;
-    font-weight: 800;
+    font-size: 1.2em;
     padding: 8px 24px;
+    margin: 1.5em;
     height: 100%; }
     #hero .button:hover, #hero .button:active, #hero .button:focus {
       background-color: #fcbc02;
