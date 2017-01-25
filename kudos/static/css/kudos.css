@@ -79,7 +79,6 @@ header {
 
 label {
   font-weight: 400;
-  font-size: 1.2em;
   display: inline-block; }
 
 input[type="email"],
@@ -91,7 +90,6 @@ input[type="url"],
 input[type="password"],
 textarea,
 select {
-  font-size: 1.2em;
   height: 48px; }
 
 .form_error {
@@ -102,7 +100,7 @@ select {
   display: inline-block; }
 
 .hint {
-  padding-top: 32px;
+  padding-top: 28px;
   color: #8794a4; }
 
 .button.button-primary,

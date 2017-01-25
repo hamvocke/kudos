@@ -50,12 +50,19 @@
         </div>
 
         <div class="row">
-            {% for subfield in form.options %}
-            <div class="option">
-                <span>{{ subfield }}</span>
-                <span>{{ subfield.label }}</span>
+            <div class="two-thirds column">
+                {% for subfield in form.options %}
+                <div class="option">
+                    <span>{{ subfield }}</span>
+                    <span>{{ subfield.label }}</span>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+
+            <div class="one-third column">
+                <p class="hint">Choose a set of feedback options that works best for the feedback you want to achieve.
+                Think about the tone of voice, the number of options and the visual style you need.</p>
+            </div>
         </div>
 
         <div class="row">
