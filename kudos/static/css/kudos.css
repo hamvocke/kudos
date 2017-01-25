@@ -52,16 +52,11 @@ header {
   #hero h2 {
     font-weight: 300; }
   #hero .button {
-    background-color: #fed766;
-    border: 1px solid #fed766;
     color: #292f36;
     font-size: 1.2em;
     padding: 8px 24px;
     margin: 1.5em;
     height: 100%; }
-    #hero .button:hover, #hero .button:active, #hero .button:focus {
-      background-color: #fcbc02;
-      border-color: #fcbc02; }
 
 #messages ul {
   display: inline; }
@@ -110,7 +105,10 @@ input.button-primary[type="reset"],
 input.button-primary[type="button"] {
   background-color: #fed766;
   border: 1px solid #fed766;
-  color: #292f36; }
+  color: #292f36;
+  font-size: 0.9em;
+  padding: 4px 30px;
+  height: 100%; }
   .button.button-primary:hover, .button.button-primary:active, .button.button-primary:focus,
   button.button-primary:hover,
   button.button-primary:active,
