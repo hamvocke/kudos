@@ -58,19 +58,20 @@ header {
     margin: 1.5em;
     height: 100%; }
 
-#messages ul {
-  display: inline; }
-#messages li {
-  display: inline; }
-#messages .message {
-  display: block;
-  background-color: #CC333F;
-  border-bottom: 3px solid #521419;
-  font-size: 1.2em;
-  color: white;
-  border-radius: 8px;
-  width: 100%;
-  padding: 8px 12px; }
+#messages {
+  margin: 12px auto; }
+  #messages ul {
+    display: inline; }
+  #messages li {
+    display: inline; }
+  #messages .message {
+    display: block;
+    background-color: #db7079;
+    font-size: 1.2em;
+    color: white;
+    border-radius: 8px;
+    width: 100%;
+    padding: 8px 12px; }
 
 label {
   font-weight: 400;
