@@ -4,7 +4,7 @@
     {% if feedbacks|length == 0 %}
         <h1>There seems to be nothing here yet!</h1>
         <p>Why don't you create your first feedback now?</p>
-        <a href="/feedback/create" class="button button-primary">Create Feedback</a>
+        <a href="{{ url_for('create_feedback') }}" class="button button-primary">Create Feedback</a>
     {% else %}
         <h1>All Feedback Rounds</h1>
         {% for feedback in feedbacks %}
