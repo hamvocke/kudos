@@ -1,10 +1,14 @@
 import unittest
 from unittest.mock import patch
 
-from kudos import initial_data
+from kudos import initial_data, db
 
 
 class AppTestCase(unittest.TestCase):
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+
     @patch('kudos.initial_data.db')
     @patch('kudos.initial_data.models.Option.query')
     def test_should_save_options_if_not_present(self, mock_query, mock_db):
