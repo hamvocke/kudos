@@ -14,9 +14,6 @@ def index():
 @app.route('/feedback', methods=['GET'])
 def all_feedback():
     feedbacks = Feedback.query.all()
-    if len(feedbacks) == 0:
-        abort(404)
-
     return render_template('feedbacks.html', feedbacks=feedbacks)
 
 

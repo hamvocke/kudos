@@ -23,7 +23,7 @@ def save_option_set(name, options):
     return option_set
 
 
-class ApiTestCase(unittest.TestCase):
+class ViewTestCase(unittest.TestCase):
     def setUp(self):
         app.config.from_object('config.TestingConfig')
         self.app = app.test_client()
@@ -67,6 +67,11 @@ class ApiTestCase(unittest.TestCase):
         assert response.status_code == 200
         assert b"somefeedback" in response.data
         assert b"anotherfeedback" in response.data
+
+    def test_should_show_empty_page_if_no_feedback_present(self):
+        response = self.app.get('/feedback')
+        assert response.status_code == 200
+        assert b"There seems to be nothing here yet" in response.data
 
     def test_should_get_single_feedback(self):
         feedback = save_feedback('somefeedback')
