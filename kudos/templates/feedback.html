@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 {% block body %}
 <section id="feedback" class="container">
-  <div class="feedback">
-    <h1>{{ feedback.name }}</h1>
+    <div class="feedback">
+        <h1>{{ feedback.name }}</h1>
 
-    <h2>Vote</h2>
-    {% for option in feedback.options %}
-      <a class="button option" href="{{ url_for('vote', feedback_id=feedback.id,
+        <h2>Vote</h2>
+        {% for option in feedback.options %}
+        <a class="button option" href="{{ url_for('vote', feedback_id=feedback.id,
       option_id=option.id) }}">{{ option.description }}</a>
-    {% endfor %}
-  </div>
+        {% endfor %}
+    </div>
 
-  <a href="{{ url_for('results', feedback_id=feedback.id) }}">See your feedback results</a>
+    <div>
+        <a href="{{ url_for('results', feedback_id=feedback.id) }}">See your feedback results</a>
+    </div>
 </section>
 {% endblock %}
