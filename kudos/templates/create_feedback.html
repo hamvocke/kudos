@@ -22,7 +22,7 @@
         <div class="row">
             <div class="two-thirds  column">
                 {{ form.description.label }}
-                {{ form.description(class_='u-full-width') }}
+                {{ form.description(class_='u-full-width', rows=8) }}
                 {% for error in form.description.errors %}
                 <div class="form_error">{{ error }}</div>
                 {% endfor %}

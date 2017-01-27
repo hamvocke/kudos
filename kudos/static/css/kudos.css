@@ -127,4 +127,7 @@ input.button-primary[type="button"] {
     border-color: #fcbc02;
     color: #292f36; }
 
+textarea {
+  height: 100%; }
+
 /*# sourceMappingURL=kudos.css.map */
