@@ -4,6 +4,8 @@
     <div class="feedback">
         <h1>{{ feedback.name }}</h1>
 
+        <div>{{ feedback.description }}</div>
+
         <h2>Vote</h2>
         {% for option in feedback.options %}
         <a class="button option" href="{{ url_for('vote', feedback_id=feedback.id,

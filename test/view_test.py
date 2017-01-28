@@ -4,8 +4,8 @@ from kudos import app, db
 from kudos.models import Feedback, OptionSet, Option, Vote
 
 
-def save_feedback(name, option_set=None):
-    feedback = Feedback(name, option_set.options if option_set is not None else [])
+def save_feedback(name, option_set=None, description=None):
+    feedback = Feedback(name, option_set.options if option_set is not None else [], description)
     db.session.add(feedback)
     db.session.commit()
     return feedback
@@ -74,10 +74,11 @@ class ViewTestCase(unittest.TestCase):
         assert b"There seems to be nothing here yet" in response.data
 
     def test_should_get_single_feedback(self):
-        feedback = save_feedback('somefeedback')
+        feedback = save_feedback('somefeedback', description='some description')
         response = self.app.get('/feedback/{}'.format(feedback.id))
         assert response.status_code == 200
         assert b"<h1>somefeedback</h1>" in response.data
+        assert b"some description" in response.data
 
     def test_should_return_404_for_unknown_feedback(self):
         response = self.app.get('/feedback/unknown')
