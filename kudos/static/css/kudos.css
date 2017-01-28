@@ -25,7 +25,7 @@ header {
   header nav {
     display: inline-block;
     vertical-align: middle;
-    font-weight: 300; }
+    font-weight: 200; }
   header ul {
     display: inline; }
   header li {
@@ -50,7 +50,7 @@ header {
   #hero h1 {
     font-weight: 800; }
   #hero h2 {
-    font-weight: 300; }
+    font-weight: 200; }
   #hero .button {
     color: #292f36;
     font-size: 1.2em;
