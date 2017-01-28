@@ -12,8 +12,8 @@ def create_option(description):
     return option
 
 
-def create_feedback(name, options, votes=[]):
-    feedback = models.Feedback(name, options)
+def create_feedback(name, options, votes=[], description=None):
+    feedback = models.Feedback(name, options, description)
     if len(votes) > 0:
         feedback.votes = [models.Vote(feedback.id, vote.description) for vote in votes]
     db.session.add(feedback)
@@ -37,7 +37,7 @@ class RestApiTestCase(unittest.TestCase):
 
     def test_should_return_single_feedback(self):
         option = create_option('some option')
-        created_feedback = create_feedback('some-feedback', [option], [option])
+        created_feedback = create_feedback('some-feedback', [option], [option], 'some description')
 
         response = self.app.get('/api/feedback/{}'.format(created_feedback.id))
         parsed_response = json.loads(response.data)
@@ -45,6 +45,7 @@ class RestApiTestCase(unittest.TestCase):
         assert parsed_response == {
             'id': 1,
             'name': 'some-feedback',
+            'description': 'some description',
             'options': [
                 {
                     'id': 1,
