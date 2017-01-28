@@ -40,7 +40,7 @@ class ViewTestCase(unittest.TestCase):
         assert response.status_code == 200
         assert b"<h1>Kudos</h1>" in response.data
 
-    def test_should_render_feedback_page(self):
+    def test_should_render_create_feedback_page(self):
         response = self.app.get("/feedback/create")
         assert response.status_code == 200
         assert b"Get your feedback. It's super simple!" in response.data

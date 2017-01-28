@@ -8,6 +8,7 @@ options_feedback = db.Table('feedback_options',
 class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
+    description = db.Column(db.String(1000))
     votes = db.relationship('Vote', backref='feedback')
     options = db.relationship('Option', secondary=options_feedback, backref=db.backref('feedbacks', lazy='dynamic'))
 
@@ -15,13 +16,15 @@ class Feedback(db.Model):
         return {
             'id': self.id,
             'name': self.name,
+            'description': self.description,
             'options': [option.serialize() for option in self.options],
             'votes': [vote.serialize() for vote in self.votes]
         }
 
-    def __init__(self, name, options=[]):
+    def __init__(self, name, options=[], description=None):
         self.name = name
         self.options = options
+        self.description = description
 
     def __repr__(self):
         return '<Feedback {}>'.format(self.name)

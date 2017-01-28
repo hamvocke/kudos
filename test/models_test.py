@@ -6,11 +6,12 @@ from kudos.models import *
 class FeedbackTest(unittest.TestCase):
     def test_convert_to_json(self):
         option = Option('some option')
-        feedback = Feedback('some name', [option])
+        feedback = Feedback('some name', [option], 'some description')
         feedback.votes = [Vote(feedback.id, option.description)]
         serialized_feedback = feedback.serialize()
         assert serialized_feedback['id'] is None
         assert serialized_feedback['name'] == 'some name'
+        assert serialized_feedback['description'] == 'some description'
         assert serialized_feedback['options'][0]['id'] is None
         assert serialized_feedback['options'][0]['description'] == 'some option'
         assert serialized_feedback['votes'][0]['option'] == 'some option'
