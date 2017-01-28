@@ -23,8 +23,7 @@ def create_feedback():
     form.options.choices = [(option.id, option.name) for option in OptionSet.query.all()]
     if form.validate_on_submit():
         option_set = OptionSet.query.get(form.options.data)
-        feedback = Feedback(form.name.data)
-        feedback.options = option_set.options
+        feedback = Feedback(form.name.data, option_set.options, form.description.data)
         db.session.add(feedback)
         db.session.commit()
         flash('Created new feedback')

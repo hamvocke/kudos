@@ -29,7 +29,8 @@ class ViewTestCase(unittest.TestCase):
         self.app = app.test_client()
         db.create_all()
         self.option_set = save_option_set('Emoticons', [':(', ':)'])
-        self.feedback_dict = dict(email='someMail@example.com', name='test', options=self.option_set.id)
+        self.feedback_dict = dict(email='someMail@example.com', name='test', options=self.option_set.id,
+                                  description='some description')
 
     def tearDown(self):
         db.session.remove()
@@ -58,6 +59,7 @@ class ViewTestCase(unittest.TestCase):
         self.app.post("/feedback/create", data=self.feedback_dict, follow_redirects=True)
         saved_feedback = Feedback.query.first()
         assert saved_feedback.name == 'test'
+        assert saved_feedback.description == 'some description'
         assert len(saved_feedback.options) == 2
 
     def test_should_find_all_feedback(self):
