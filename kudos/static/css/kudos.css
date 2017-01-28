@@ -93,7 +93,10 @@ select {
   font-size: 0.9em; }
 
 .option {
-  display: inline-block; }
+  display: inline-block;
+  margin-right: 12px; }
+  .option:last-child {
+    margin-right: 0; }
 
 .hint {
   padding-top: 28px;
@@ -129,5 +132,9 @@ input.button-primary[type="button"] {
 
 textarea {
   height: 100%; }
+
+.vote {
+  margin: 12px auto;
+  text-align: center; }
 
 /*# sourceMappingURL=kudos.css.map */
