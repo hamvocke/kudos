@@ -108,12 +108,12 @@ class ViewTestCase(unittest.TestCase):
         response = self.app.post('/feedback/{}/{}'.format(feedback.id, self.option_set.options[0].id))
         assert response.status_code == 302
 
-    def test_should_show_feedback_for_creator(self):
+    def test_should_show_feedback_results(self):
         feedback = save_feedback('somefeedback', self.option_set)
         self.app.post('/feedback/{}/{}'.format(feedback.id, self.option_set.options[0].id))
 
         response = self.app.get('/feedback/{}/results'.format(feedback.id))
-        expected_body = "Your feedback for {}".format(feedback.name)
+        expected_body = "Your feedback for '<em>{}</em>'".format(feedback.name)
         assert response.status_code == 200
         assert expected_body in response.data.decode('utf-8')
 
