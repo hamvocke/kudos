@@ -14,7 +14,7 @@ def index():
 @app.route('/feedback', methods=['GET'])
 def all_feedback():
     feedbacks = Feedback.query.all()
-    return render_template('feedbacks.html', feedbacks=feedbacks)
+    return render_template('feedback_list.html', feedbacks=feedbacks)
 
 
 @app.route('/feedback/create', methods=['POST', 'GET'])
