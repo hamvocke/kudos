@@ -1,3 +1,5 @@
+import datetime
+
 from kudos import db
 
 options_feedback = db.Table('feedback_options',
@@ -9,6 +11,7 @@ class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
     description = db.Column(db.String(1000))
+    created_at = db.Column(db.DateTime(), default=datetime.datetime.now())
     votes = db.relationship('Vote', backref='feedback')
     options = db.relationship('Option', secondary=options_feedback, backref=db.backref('feedbacks', lazy='dynamic'))
 

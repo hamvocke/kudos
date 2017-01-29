@@ -34,6 +34,14 @@ class DatabaseTestCase(unittest.TestCase):
         assert len(saved_options) == 1
         assert saved_options[0].description == 'some option'
 
+    def test_should_save_creation_time(self):
+        some_option = models.Option('some option')
+        save_feedback('some test feedback', some_option)
+        saved_feedback = models.Feedback.query.first()
+
+        assert saved_feedback.created_at is not None
+
+
     def test_should_persist_vote(self):
         some_option = models.Option('some option')
         feedback = save_feedback('some test feedback', some_option)
