@@ -36,6 +36,7 @@ class Feedback(db.Model):
 class Vote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     feedback_id = db.Column(db.Integer, db.ForeignKey('feedback.id'))
+    created_at = db.Column(db.DateTime(), default=datetime.datetime.now())
     option = db.Column(db.String(50))
     text = db.Column(db.String(250))
 
