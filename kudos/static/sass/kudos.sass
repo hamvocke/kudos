@@ -14,6 +14,7 @@ $pink: #ff4d80
 $sun: #fed766
 $blue: #00A0B0
 $gray: #292f36
+$lightgray: lighten($gray, 40%)
 $white: #fafafa
 $ivory: #fbf5f3
 $slate: #93b7be
@@ -166,11 +167,11 @@ textarea
         margin-bottom: 8px
 
 .subtitle
-    color: lighten($gray, 40%)
+    color: $lightgray
 
     a
         text-decoration: none
-        color: lighten($gray, 40%)
+        color: $lightgray
 
         &:active, &:hover, &:focus
             text-decoration: underline
