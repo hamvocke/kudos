@@ -2,7 +2,20 @@
 {% block content %}
 <section class="container">
     <div class="feedback">
-        <h1>{{ feedback.name }}</h1>
+        <div class="title">
+            <h2>{{ feedback.name }}</h2>
+            <div class="subtitle">
+                <span class="item">
+                    <a href="{{ url_for('results', feedback_id=feedback.id) }}">
+                        <i class="fa fa-pie-chart" aria-hidden="true"></i> Results
+                    </a>
+                </span>
+
+                    <span class="item">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> Created yesterday
+                </span>
+            </div>
+        </div>
 
         <div>{{ feedback.description }}</div>
 
@@ -12,10 +25,6 @@
       option_id=option.id) }}">{{ option.description }}</a>
             {% endfor %}
         </div>
-    </div>
-
-    <div>
-        <a href="{{ url_for('results', feedback_id=feedback.id) }}">See your feedback results</a>
     </div>
 </section>
 {% endblock %}
