@@ -20,6 +20,7 @@ class Feedback(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
+            'created_at': self.created_at.isoformat(),
             'options': [option.serialize() for option in self.options],
             'votes': [vote.serialize() for vote in self.votes]
         }
@@ -28,6 +29,7 @@ class Feedback(db.Model):
         self.name = name
         self.options = options
         self.description = description
+        self.created_at = datetime.datetime.now()
 
     def __repr__(self):
         return '<Feedback {}>'.format(self.name)
@@ -42,13 +44,15 @@ class Vote(db.Model):
 
     def serialize(self):
         return {
-            'option': self.option
+            'option': self.option,
+            'created_at': self.created_at.isoformat()
         }
 
     def __init__(self, feedback_id, option, text=None):
         self.feedback_id = feedback_id
         self.option = option
         self.text = text
+        self.created_at = datetime.datetime.now()
 
     def __repr__(self):
         return '<Vote {}>'.format(self.option)
