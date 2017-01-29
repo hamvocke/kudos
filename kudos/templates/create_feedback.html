@@ -1,6 +1,6 @@
-{% extends "base.html" %}
-{% block body %}
-<section class="container content">
+{% extends "base_page.html" %}
+{% block content %}
+<section class="container">
     <h1>Get your feedback. It's super simple!</h1>
     <form action="{{ url_for('create_feedback') }}" method="post">
         {{ form.hidden_tag() }}

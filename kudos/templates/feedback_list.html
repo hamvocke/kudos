@@ -1,15 +1,17 @@
-{% extends "base.html" %}
-{% block body %}
-<section id="feedback" class="container">
+{% extends "base_page.html" %}
+{% block content %}
+<section class="container">
     {% if feedbacks|length == 0 %}
         <h1>There seems to be nothing here yet!</h1>
         <p>Why don't you create your first feedback now?</p>
         <a href="{{ url_for('create_feedback') }}" class="button button-primary">Create Feedback</a>
     {% else %}
-        <h1>All Feedback Rounds</h1>
-        {% for feedback in feedbacks %}
-        <div class="feedback"><a href="{{ url_for('feedback', feedback_id=feedback.id)}}">{{ feedback.name }}</a></div>
-        {% endfor %}
+        <h1>Your Feedback</h1>
+        <table>
+            {% for feedback in feedbacks %}
+                <div class="feedback"><a href="{{ url_for('feedback', feedback_id=feedback.id)}}">{{ feedback.name }}</a></div>
+            {% endfor %}
+        </table>
     {% endif %}
 </section>
 {% endblock %}
