@@ -9,7 +9,14 @@
         <h1>Your Feedback</h1>
         <table>
             {% for feedback in feedbacks %}
-                <div class="feedback"><a href="{{ url_for('feedback', feedback_id=feedback.id)}}">{{ feedback.name }}</a></div>
+            <tr>
+                <td>
+                    <a href="{{ url_for('feedback', feedback_id=feedback.id)}}">{{ feedback.name }}</a>
+                </td>
+                <td>
+                    {{ feedback.id }}
+                </td>
+            </tr>
             {% endfor %}
         </table>
     {% endif %}
