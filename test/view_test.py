@@ -49,7 +49,7 @@ class ViewTestCase(unittest.TestCase):
     def test_should_redirect_to_feedback_page_after_create(self):
         response = self.app.post("/feedback/create", data=self.feedback_dict, follow_redirects=True)
         assert response.status_code == 200
-        assert b"<h1>test</h1>" in response.data
+        assert b"<h2>test</h2>" in response.data
 
     def test_should_flash_message_after_create(self):
         response = self.app.post("/feedback/create", data=self.feedback_dict, follow_redirects=True)
@@ -79,7 +79,7 @@ class ViewTestCase(unittest.TestCase):
         feedback = save_feedback('somefeedback', description='some description')
         response = self.app.get('/feedback/{}'.format(feedback.id))
         assert response.status_code == 200
-        assert b"<h1>somefeedback</h1>" in response.data
+        assert b"<h2>somefeedback</h2>" in response.data
         assert b"some description" in response.data
 
     def test_should_return_404_for_unknown_feedback(self):
