@@ -152,4 +152,12 @@ textarea {
   .subtitle .item {
     margin-right: 24px; }
 
+.badge {
+  border-radius: 12px;
+  font-size: 0.9em;
+  padding: 4px 8px; }
+  .badge.blue {
+    background-color: #00A0B0;
+    color: #fafafa; }
+
 /*# sourceMappingURL=kudos.css.map */
