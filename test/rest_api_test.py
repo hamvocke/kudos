@@ -1,3 +1,4 @@
+import datetime
 import unittest
 
 from flask import json
@@ -16,8 +17,8 @@ class RestApiTestCase(unittest.TestCase):
         return option
 
     @staticmethod
-    def create_feedback(name, options, votes=[], description=None):
-        feedback = models.Feedback(name, options, description)
+    def create_feedback(name, options, votes=[], description=None, ends_at=None):
+        feedback = models.Feedback(name, options, description, ends_at)
         if len(votes) > 0:
             feedback.votes = [models.Vote(feedback.id, vote.description) for vote in votes]
         db.session.add(feedback)
@@ -39,7 +40,8 @@ class RestApiTestCase(unittest.TestCase):
 
     def test_should_return_single_feedback(self):
         option = self.create_option('some option')
-        created_feedback = self.create_feedback('some-feedback', [option], [option], 'some description')
+        created_feedback = self.create_feedback('some-feedback', [option], [option], 'some description',
+                                                datetime.datetime.now())
 
         response = self.app.get('/api/feedback/{}'.format(created_feedback.id))
         parsed_response = json.loads(response.data)
@@ -49,6 +51,7 @@ class RestApiTestCase(unittest.TestCase):
             'name': 'some-feedback',
             'description': 'some description',
             'created_at': '2017-01-01T00:00:00',
+            'ends_at': '2017-01-01T00:00:00',
             'options': [
                 {
                     'id': 1,

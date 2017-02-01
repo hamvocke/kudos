@@ -1,5 +1,7 @@
 import datetime
 
+from enum import Enum
+
 from kudos import db
 
 options_feedback = db.Table('feedback_options',
@@ -12,24 +14,32 @@ class Feedback(db.Model):
     name = db.Column(db.String(150))
     description = db.Column(db.String(1000))
     created_at = db.Column(db.DateTime(), default=datetime.datetime.now())
+    ends_at = db.Column(db.DateTime(), default=None)
     votes = db.relationship('Vote', backref='feedback')
     options = db.relationship('Option', secondary=options_feedback, backref=db.backref('feedbacks', lazy='dynamic'))
 
     def serialize(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-            'description': self.description,
-            'created_at': self.created_at.isoformat(),
-            'options': [option.serialize() for option in self.options],
-            'votes': [vote.serialize() for vote in self.votes]
-        }
+        feedback = {'id': self.id,
+                    'name': self.name,
+                    'description': self.description,
+                    'created_at': self.created_at.isoformat(),
+                    'options': [option.serialize() for option in self.options],
+                    'votes': [vote.serialize() for vote in self.votes]}
 
-    def __init__(self, name, options=[], description=None):
+        if self.ends_at:
+            feedback['ends_at'] = self.ends_at.isoformat()
+
+        return feedback
+
+    def status(self):
+        return FeedbackStatus.ACTIVE if datetime.datetime.now() < self.ends_at else FeedbackStatus.CLOSED
+
+    def __init__(self, name, options=[], description=None, ends_at=None):
         self.name = name
         self.options = options
         self.description = description
         self.created_at = datetime.datetime.now()
+        self.ends_at = ends_at
 
     def __repr__(self):
         return '<Feedback {}>'.format(self.name)
@@ -87,3 +97,8 @@ class OptionSet(db.Model):
 
     def __repr__(self):
         return '<OptionSet {}>'.format(self.name)
+
+
+class FeedbackStatus(Enum):
+    CLOSED = 0
+    ACTIVE = 1
