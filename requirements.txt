@@ -2,6 +2,7 @@ aniso8601==1.2.0
 blinker==1.4
 click==6.6
 contextlib2==0.5.4
+Faker==0.7.7
 Flask==0.12
 Flask-SQLAlchemy==2.1
 Flask-WTF==0.13.1
