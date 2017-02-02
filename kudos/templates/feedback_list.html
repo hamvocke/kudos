@@ -11,10 +11,10 @@
             {% for feedback in feedbacks %}
             <tr>
                 <td>
-                    <a href="{{ url_for('feedback', feedback_id=feedback.id)}}">{{ feedback.name }}</a>
+                    {{ feedback.id }}
                 </td>
                 <td>
-                    {{ feedback.id }}
+                    <a href="{{ url_for('feedback', feedback_id=feedback.id)}}">{{ feedback.name }}</a>
                 </td>
                 <td>
                     <span class="badge blue">Open</span>
