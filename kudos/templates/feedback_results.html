@@ -9,6 +9,10 @@
         </div>
 
         <div>
+            <img src="{{ url_for('get_qrcode', feedback_id=feedback.id) }}"></img>
+        </div>
+
+        <div>
             {% for vote in feedback.votes %}
             <div>{{ vote.option }}</div>
             {% endfor %}
