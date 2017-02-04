@@ -15,6 +15,7 @@ class Feedback(db.Model):
     description = db.Column(db.String(1000))
     created_at = db.Column(db.DateTime(), default=datetime.datetime.now())
     ends_at = db.Column(db.DateTime(), default=None)
+    qrcode = db.Column(db.LargeBinary())
     votes = db.relationship('Vote', backref='feedback')
     options = db.relationship('Option', secondary=options_feedback, backref=db.backref('feedbacks', lazy='dynamic'))
 

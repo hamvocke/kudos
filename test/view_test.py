@@ -123,3 +123,13 @@ class ViewTestCase(unittest.TestCase):
     def test_should_return_404_for_unknown_feedback_results(self):
         response = self.app.get('/feedback/{}/results'.format('unknown'))
         assert response.status_code == 404
+
+    def test_should_serve_qrcode_image(self):
+        feedback = save_feedback('somefeedback', self.option_set)
+
+        response = self.app.get('/feedback/{}/qrcode'.format(feedback.id))
+
+        assert response.status_code == 200
+        assert len(response.data) > 0
+        assert response.mimetype == 'image/jpeg'
+

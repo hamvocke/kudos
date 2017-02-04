@@ -1,5 +1,6 @@
 from kudos import app, db, models
 import unittest
+import qrcode
 
 from kudos.models import Vote
 
@@ -33,6 +34,15 @@ class DatabaseTestCase(unittest.TestCase):
         assert saved_feedbacks[0].name == 'some test feedback'
         assert len(saved_options) == 1
         assert saved_options[0].description == 'some option'
+
+    def test_should_persist_qrcode(self):
+        feedback = models.Feedback('some feedback with qrcode')
+        feedback.qrcode = qrcode.make('some qrcode data').get_image().tobytes()
+        db.session.add(feedback)
+        db.session.commit()
+
+        saved_feedback = models.Feedback.query.first()
+        assert saved_feedback.qrcode == feedback.qrcode
 
     def test_should_save_creation_time_for_feedback(self):
         some_option = models.Option('some option')

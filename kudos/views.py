@@ -1,4 +1,8 @@
+from io import BytesIO
+
+import qrcode
 from flask import render_template, redirect, url_for, flash, abort, make_response
+from flask import send_file
 
 from kudos import app
 from kudos import db
@@ -24,6 +28,11 @@ def create_feedback():
     if form.validate_on_submit():
         option_set = OptionSet.query.get(form.options.data)
         feedback = Feedback(form.name.data, option_set.options, form.description.data)
+        db.session.add(feedback)
+        db.session.commit()
+
+        img = qrcode.make(url_for('feedback', feedback_id=feedback.id)).get_image().tobytes()
+        feedback.qrcode = img
         db.session.add(feedback)
         db.session.commit()
         flash('Created new feedback')
@@ -67,3 +76,17 @@ def results(feedback_id):
         abort(404)
 
     return render_template('feedback_results.html', feedback=feedback)
+
+
+@app.route('/feedback/<int:feedback_id>/qrcode', methods=['GET'])
+def get_qrcode(feedback_id):
+    if feedback is None:
+        abort(404)
+
+    img = qrcode.make(url_for('feedback', feedback_id=feedback_id))
+
+    img_io = BytesIO()
+    img.save(img_io, 'JPEG')
+    img_io.seek(0)
+
+    return send_file(img_io, mimetype='image/jpeg')
