@@ -83,7 +83,7 @@ def get_qrcode(feedback_id):
     if feedback is None:
         abort(404)
 
-    img = qrcode.make(url_for('feedback', feedback_id=feedback_id))
+    img = qrcode.make(url_for('feedback', feedback_id=feedback_id, _external=True))
 
     img_io = BytesIO()
     img.save(img_io, 'JPEG')
