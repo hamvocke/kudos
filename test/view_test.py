@@ -125,9 +125,9 @@ class ViewTestCase(unittest.TestCase):
         assert response.status_code == 404
 
     def test_should_serve_qrcode_image(self):
-        feedback = save_feedback('somefeedback', self.option_set)
+        self.app.post("/feedback/create", data=self.feedback_dict, follow_redirects=True)
 
-        response = self.app.get('/feedback/{}/qrcode'.format(feedback.id))
+        response = self.app.get('/feedback/{}/qrcode'.format('1'))
 
         assert response.status_code == 200
         assert len(response.data) > 0

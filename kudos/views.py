@@ -31,10 +31,13 @@ def create_feedback():
         db.session.add(feedback)
         db.session.commit()
 
-        img = qrcode.make(url_for('feedback', feedback_id=feedback.id)).get_image().tobytes()
-        feedback.qrcode = img
+        img = qrcode.make(url_for('feedback', feedback_id=feedback.id, _external=True))
+        img_io = BytesIO()
+        img.save(img_io, 'JPEG')
+        feedback.qrcode = img_io.getvalue()
         db.session.add(feedback)
         db.session.commit()
+
         flash('Created new feedback')
         return redirect(url_for('feedback', feedback_id=feedback.id))
     return render_template('create_feedback.html', form=form)
@@ -80,13 +83,10 @@ def results(feedback_id):
 
 @app.route('/feedback/<int:feedback_id>/qrcode', methods=['GET'])
 def get_qrcode(feedback_id):
+    feedback = Feedback.query.get(feedback_id)
+
     if feedback is None:
         abort(404)
 
-    img = qrcode.make(url_for('feedback', feedback_id=feedback_id, _external=True))
-
-    img_io = BytesIO()
-    img.save(img_io, 'JPEG')
-    img_io.seek(0)
-
+    img_io = BytesIO(feedback.qrcode)
     return send_file(img_io, mimetype='image/jpeg')
