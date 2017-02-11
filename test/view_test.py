@@ -83,7 +83,7 @@ class ViewTestCase(unittest.TestCase):
         assert b"some description" in response.data
 
     def test_should_return_404_for_unknown_feedback(self):
-        response = self.app.get('/feedback/unknown')
+        response = self.app.get('/feedback/100')
         assert response.status_code == 404
 
     def test_should_flash_message_after_voting(self):
@@ -121,7 +121,7 @@ class ViewTestCase(unittest.TestCase):
         assert expected_body in response.data.decode('utf-8')
 
     def test_should_return_404_for_unknown_feedback_results(self):
-        response = self.app.get('/feedback/{}/results'.format('unknown'))
+        response = self.app.get('/feedback/{}/results'.format('100'))
         assert response.status_code == 404
 
     def test_should_serve_qrcode_image(self):
@@ -133,3 +133,6 @@ class ViewTestCase(unittest.TestCase):
         assert len(response.data) > 0
         assert response.mimetype == 'image/jpeg'
 
+    def test_should_return_404_for_unknown_feedback_qrcode(self):
+        response = self.app.get('/feedback/{}/qrcode'.format('100'))
+        assert response.status_code == 404

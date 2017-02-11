@@ -88,5 +88,4 @@ def get_qrcode(feedback_id):
     if feedback is None:
         abort(404)
 
-    img_io = BytesIO(feedback.qrcode)
-    return send_file(img_io, mimetype='image/jpeg')
+    return send_file(BytesIO(feedback.qrcode), mimetype='image/jpeg')
