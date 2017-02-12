@@ -193,18 +193,21 @@ textarea
     .vote
         margin: 24px 0
         padding: 12px
+        border: 1px solid $lightgray
         border-radius: 4px
-        display: inline-block
-        min-width: 100%
+        display: flex
+
+        i
+            padding-right: 4px
 
         .meta
             color: $gray
             font-size: 0.9em
             font-weight: 200
-            margin-bottom: 12px
+            margin-bottom: 8px
 
         .option
-            float: left
             font-size: 1.8em
             margin-right: 12px
-            padding: 0 24px
+            padding: 12px 24px
+            min-height: 100%

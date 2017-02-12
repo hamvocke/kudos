@@ -163,18 +163,20 @@ textarea {
 #results .vote {
   margin: 24px 0;
   padding: 12px;
+  border: 1px solid #e1e1e1;
   border-radius: 4px;
-  display: inline-block;
-  min-width: 100%; }
+  display: flex; }
+  #results .vote i {
+    padding-right: 4px; }
   #results .vote .meta {
     color: #8794a4;
     font-size: 0.9em;
     font-weight: 200;
-    margin-bottom: 12px; }
+    margin-bottom: 8px; }
   #results .vote .option {
-    float: left;
     font-size: 1.8em;
     margin-right: 12px;
-    padding: 0 24px; }
+    padding: 12px 24px;
+    min-height: 100%; }
 
 /*# sourceMappingURL=kudos.css.map */

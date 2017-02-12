@@ -14,9 +14,11 @@
     <div>
         {% for vote in feedback.votes|sort(true, attribute='created_at') %}
         <div class="vote">
-            <div class="meta"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ vote.created_at }}</div>
             <div class="option">{{ vote.option }}</div>
-            <div class="comment">{{ vote.text }}</div>
+            <div>
+                <div class="meta"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ vote.created_at }}</div>
+                <div class="comment">{{ vote.text }}</div>
+            </div>
         </div>
         {% endfor %}
     </div>
