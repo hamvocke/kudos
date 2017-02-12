@@ -1,10 +1,6 @@
 from io import BytesIO
 
-import bokeh
 import qrcode
-from bokeh.embed import components
-from bokeh.plotting import figure
-from bokeh.resources import INLINE
 from flask import render_template, redirect, url_for, flash, abort, make_response
 from flask import send_file
 
@@ -79,24 +75,10 @@ def vote(feedback_id, option_id):
 def results(feedback_id):
     feedback = Feedback.query.get(feedback_id)
 
-    x = list(range(0, 100))
-    fig = figure(title="Polynomial")
-    fig.line(x, [i ** 2 for i in x], color='#330000', line_width=2)
-
-    js_resources = INLINE.render_js()
-    css_resources = INLINE.render_css()
-
-    script, div = components(fig)
-
     if feedback is None:
         abort(404)
 
-    return render_template('feedback_results.html',
-                           feedback=feedback,
-                           plot_script=script,
-                           plot_div=div,
-                           js_resources=js_resources,
-                           css_resources=css_resources)
+    return render_template('feedback_results.html', feedback=feedback)
 
 
 @app.route('/feedback/<int:feedback_id>/qrcode', methods=['GET'])
