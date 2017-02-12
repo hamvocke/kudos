@@ -5,3 +5,4 @@ __pycache__
 *.pyc
 instance/
 .sass-cache/
+node_modules/
