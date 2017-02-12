@@ -1,30 +1,28 @@
 {% extends "base_page.html" %}
 {% block content %}
-<section class="container">
-    <div class="feedback">
-        <div class="title">
-            <h2>{{ feedback.name }}</h2>
-            <div class="subtitle">
+<section id="feedback" class="container">
+    <div class="title">
+        <h2>{{ feedback.name }}</h2>
+        <div class="subtitle">
                 <span class="item">
                     <a href="{{ url_for('results', feedback_id=feedback.id) }}">
                         <i class="fa fa-pie-chart" aria-hidden="true"></i> Results
                     </a>
                 </span>
 
-                    <span class="item">
+            <span class="item">
                     <i class="fa fa-clock-o" aria-hidden="true"></i> Created at {{ feedback.created_at }}
                 </span>
-            </div>
         </div>
+    </div>
 
-        <div>{{ feedback.description }}</div>
+    <div>{{ feedback.description }}</div>
 
-        <div class="vote">
-            {% for option in feedback.options %}
-            <a class="button button-primary option" href="{{ url_for('vote', feedback_id=feedback.id,
+    <div class="options">
+        {% for option in feedback.options %}
+        <a class="button button-primary option" href="{{ url_for('vote', feedback_id=feedback.id,
       option_id=option.id) }}">{{ option.description }}</a>
-            {% endfor %}
-        </div>
+        {% endfor %}
     </div>
 </section>
 {% endblock %}

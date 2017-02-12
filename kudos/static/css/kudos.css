@@ -133,7 +133,7 @@ input.button-primary[type="button"] {
 textarea {
   height: 100%; }
 
-.vote {
+.options {
   margin: 12px auto;
   text-align: center; }
 
@@ -159,5 +159,22 @@ textarea {
   .badge.blue {
     background-color: #00A0B0;
     color: #fafafa; }
+
+#results .vote {
+  margin: 24px 0;
+  padding: 12px;
+  border-radius: 4px;
+  display: inline-block;
+  min-width: 100%; }
+  #results .vote .meta {
+    color: #8794a4;
+    font-size: 0.9em;
+    font-weight: 200;
+    margin-bottom: 12px; }
+  #results .vote .option {
+    float: left;
+    font-size: 1.8em;
+    margin-right: 12px;
+    padding: 0 24px; }
 
 /*# sourceMappingURL=kudos.css.map */

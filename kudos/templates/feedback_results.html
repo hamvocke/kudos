@@ -1,22 +1,24 @@
 {% extends "base_page.html" %}
 {% block content %}
-<section class="container">
-    <div class="feedback">
-        <h1>Your feedback for '<em>{{ feedback.name }}</em>'</h1>
+<section id="results" class="container">
+    <h1>Your feedback for '<em>{{ feedback.name }}</em>'</h1>
 
-        <div>
-            <strong>{{ feedback.votes|length }}</strong> votes so far
-        </div>
+    <div>
+        <strong>{{ feedback.votes|length }}</strong> votes so far
+    </div>
 
-        <div>
-            <img src="{{ url_for('get_qrcode', feedback_id=feedback.id) }}"></img>
-        </div>
+    <div>
+        <img src="{{ url_for('get_qrcode', feedback_id=feedback.id) }}">
+    </div>
 
-        <div>
-            {% for vote in feedback.votes %}
-            <div>{{ vote.option }}</div>
-            {% endfor %}
+    <div>
+        {% for vote in feedback.votes|sort(true, attribute='created_at') %}
+        <div class="vote">
+            <div class="meta"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ vote.created_at }}</div>
+            <div class="option">{{ vote.option }}</div>
+            <div class="comment">{{ vote.text }}</div>
         </div>
+        {% endfor %}
     </div>
 </section>
 {% endblock %}

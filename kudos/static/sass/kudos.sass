@@ -9,18 +9,19 @@ $pastellOrange: #ffd3b6
 $pastellPink: #ffaaa5
 $pastellRed: #ff8b94
 
+$white: #fafafa
 $red: #CC333F
 $pink: #ff4d80
 $sun: #fed766
 $blue: #00A0B0
-$gray: #292f36
-$lightgray: lighten($gray, 40%)
-$white: #fafafa
+$darkgray: #292f36
+$gray: lighten($darkgray, 40%)
+$lightgray: darken($white, 10%)
 $ivory: #fbf5f3
 $slate: #93b7be
 
 body, html
-    color: $gray
+    color: $darkgray
     background-color: $white
     font-family: 'Nunito', sans-serif
 
@@ -82,7 +83,7 @@ header
         font-weight: 200
 
     .button
-        color: $gray
+        color: $darkgray
         font-size: 1.2em
         padding: 8px 24px
         margin: 1.5em
@@ -134,7 +135,7 @@ select
 
 .hint
     padding-top: 28px
-    color: lighten($gray, 40%)
+    color: lighten($darkgray, 40%)
 
 .button.button-primary,
 button.button-primary,
@@ -143,7 +144,7 @@ input.button-primary[type="reset"],
 input.button-primary[type="button"]
     background-color: $sun
     border: 1px solid $sun
-    color: $gray
+    color: $darkgray
     font-size: 0.9em
     padding: 4px 30px
     height: 100%
@@ -151,12 +152,12 @@ input.button-primary[type="button"]
     &:hover, &:active, &:focus
         background-color: darken($sun, 20%)
         border-color: darken($sun, 20%)
-        color: $gray
+        color: $darkgray
 
 textarea
     height: 100%
 
-.vote
+.options
     margin: 12px auto
     text-align: center
 
@@ -167,11 +168,11 @@ textarea
         margin-bottom: 8px
 
 .subtitle
-    color: $lightgray
+    color: $gray
 
     a
         text-decoration: none
-        color: $lightgray
+        color: $gray
 
         &:active, &:hover, &:focus
             text-decoration: underline
@@ -188,3 +189,22 @@ textarea
         background-color: $blue
         color: $white
 
+#results
+    .vote
+        margin: 24px 0
+        padding: 12px
+        border-radius: 4px
+        display: inline-block
+        min-width: 100%
+
+        .meta
+            color: $gray
+            font-size: 0.9em
+            font-weight: 200
+            margin-bottom: 12px
+
+        .option
+            float: left
+            font-size: 1.8em
+            margin-right: 12px
+            padding: 0 24px
