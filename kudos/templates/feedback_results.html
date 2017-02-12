@@ -1,4 +1,11 @@
 {% extends "base_page.html" %}
+
+{% block bokeh %}
+    {{ js_resources|indent(4)|safe }}
+    {{ css_resources|indent(4)|safe }}
+    {{ plot_script|indent(4)|safe }}
+{% endblock %}
+
 {% block content %}
 <section id="results" class="container">
     <h1>Your feedback for '<em>{{ feedback.name }}</em>'</h1>
@@ -6,6 +13,8 @@
     <div>
         <strong>{{ feedback.votes|length }}</strong> votes so far
     </div>
+
+    {{ plot_div|indent(4)|safe }}
 
     <div>
         <img src="{{ url_for('get_qrcode', feedback_id=feedback.id) }}">
