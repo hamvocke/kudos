@@ -1,11 +1,11 @@
 from io import BytesIO
 
-import qrcode
 from flask import render_template, redirect, url_for, flash, abort, make_response
 from flask import send_file
 
 from kudos import app
 from kudos import db
+from kudos import qr
 from kudos.forms import CreateFeedbackForm
 from kudos.models import Feedback, OptionSet, Option, Vote
 
@@ -31,10 +31,7 @@ def create_feedback():
         db.session.add(feedback)
         db.session.commit()
 
-        img = qrcode.make(url_for('feedback', feedback_id=feedback.id, _external=True))
-        img_io = BytesIO()
-        img.save(img_io, 'JPEG')
-        feedback.qrcode = img_io.getvalue()
+        feedback.qrcode = qr.create_qr_code(feedback.id)
         db.session.add(feedback)
         db.session.commit()
 
