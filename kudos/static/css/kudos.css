@@ -5,6 +5,14 @@ body, html {
   background-color: #fafafa;
   font-family: "Nunito", sans-serif; }
 
+a {
+  color: #00A0B0;
+  text-decoration: none; }
+  a:hover, a:focus, a:active {
+    text-decoration: underline; }
+  a:visited {
+    color: #00727d; }
+
 header {
   background-color: #CC333F;
   color: #fafafa;
@@ -30,13 +38,14 @@ header {
     display: inline; }
   header li {
     display: inline; }
-    header li a {
+    header li a, header li a:visited {
       color: #fafafa;
       text-decoration: none;
       padding: 24px;
       height: 100%; }
     header li a:hover, header li a:focus, header li a:active {
-      color: #ebadb2; }
+      color: #ebadb2;
+      text-decoration: none; }
 
 .content {
   margin-top: 48px; }
@@ -110,9 +119,7 @@ input.button-primary[type="button"] {
   background-color: #fed766;
   border: 1px solid #fed766;
   color: #292f36;
-  font-size: 0.9em;
-  padding: 4px 30px;
-  height: 100%; }
+  font-size: 0.9em; }
   .button.button-primary:hover, .button.button-primary:active, .button.button-primary:focus,
   button.button-primary:hover,
   button.button-primary:active,
@@ -129,6 +136,13 @@ input.button-primary[type="button"] {
     background-color: #fcbc02;
     border-color: #fcbc02;
     color: #292f36; }
+  .button.button-primary.big,
+  button.button-primary.big,
+  input.button-primary[type="submit"].big,
+  input.button-primary[type="reset"].big,
+  input.button-primary[type="button"].big {
+    padding: 4px 30px;
+    height: 100%; }
 
 textarea {
   height: 100%; }

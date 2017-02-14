@@ -7,6 +7,9 @@
     <a href="{{ url_for('create_feedback') }}" class="button button-primary">Create Feedback</a>
     {% else %}
     <h1>Your Feedback</h1>
+
+    <a href="{{ url_for('create_feedback') }}" class="button button-primary">+ Add Feedback</a>
+
     <table class="u-full-width">
         <thead>
         <tr>

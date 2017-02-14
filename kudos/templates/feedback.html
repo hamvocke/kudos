@@ -20,7 +20,7 @@
 
     <div class="options">
         {% for option in feedback.options %}
-        <a class="button button-primary option" href="{{ url_for('vote', feedback_id=feedback.id,
+        <a class="button button-primary big option" href="{{ url_for('vote', feedback_id=feedback.id,
       option_id=option.id) }}">{{ option.description }}</a>
         {% endfor %}
     </div>
