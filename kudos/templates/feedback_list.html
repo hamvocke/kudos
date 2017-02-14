@@ -13,6 +13,7 @@
             <th>Id</th>
             <th>Title</th>
             <th>Status</th>
+            <th>Created</th>
             <th>Responses</th>
         </tr>
         </thead>
@@ -28,6 +29,9 @@
             </td>
             <td>
                 <span class="badge blue">Open</span>
+            </td>
+            <td>
+                <span>{{ feedback.created_at.humanize()}}</span>
             </td>
             <td>
                 <span>{{ feedback.votes|length }} responses</span>
