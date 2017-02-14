@@ -9,7 +9,7 @@ class Config(object):
     WTF_CSRF_ENABLED = True
     SECRET_KEY = 'someSecretKey'
     SENTRY_DSN = 'someSentryDsn'
-    SERVER_NAME = 'localhost'
+    SERVER_NAME = 'localhost:5000'
 
 
 class ProductionConfig(Config):
