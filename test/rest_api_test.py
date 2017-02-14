@@ -50,8 +50,8 @@ class RestApiTestCase(unittest.TestCase):
             'id': 1,
             'name': 'some-feedback',
             'description': 'some description',
-            'created_at': '2017-01-01T00:00:00',
-            'ends_at': '2017-01-01T00:00:00',
+            'created_at': '2017-01-01T00:00:00+00:00',
+            'ends_at': '2017-01-01T00:00:00+00:00',
             'options': [
                 {
                     'id': 1,
@@ -61,7 +61,7 @@ class RestApiTestCase(unittest.TestCase):
             'votes': [
                 {
                     'option': 'some option',
-                    'created_at': '2017-01-01T00:00:00',
+                    'created_at': '2017-01-01T00:00:00+00:00',
                 }
             ]
         }

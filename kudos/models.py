@@ -1,6 +1,7 @@
-import datetime
-
 from enum import Enum
+
+import arrow
+from sqlalchemy_utils import ArrowType
 
 from kudos import db
 
@@ -13,8 +14,8 @@ class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
     description = db.Column(db.String(1000))
-    created_at = db.Column(db.DateTime(), default=datetime.datetime.now())
-    ends_at = db.Column(db.DateTime(), default=None)
+    created_at = db.Column(ArrowType(), default=arrow.utcnow())
+    ends_at = db.Column(ArrowType(), default=None)
     qrcode = db.Column(db.LargeBinary())
     votes = db.relationship('Vote', backref='feedback')
     options = db.relationship('Option', secondary=options_feedback, backref=db.backref('feedbacks', lazy='dynamic'))
@@ -33,13 +34,13 @@ class Feedback(db.Model):
         return feedback
 
     def status(self):
-        return FeedbackStatus.ACTIVE if datetime.datetime.now() < self.ends_at else FeedbackStatus.CLOSED
+        return FeedbackStatus.ACTIVE if arrow.utcnow() < self.ends_at else FeedbackStatus.CLOSED
 
     def __init__(self, name, options=[], description=None, ends_at=None):
         self.name = name
         self.options = options
         self.description = description
-        self.created_at = datetime.datetime.now()
+        self.created_at = arrow.utcnow()
         self.ends_at = ends_at
 
     def __repr__(self):
@@ -49,7 +50,7 @@ class Feedback(db.Model):
 class Vote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     feedback_id = db.Column(db.Integer, db.ForeignKey('feedback.id'))
-    created_at = db.Column(db.DateTime(), default=datetime.datetime.now())
+    created_at = db.Column(ArrowType(), default=arrow.utcnow())
     option = db.Column(db.String(50))
     text = db.Column(db.String(250))
 
@@ -63,7 +64,7 @@ class Vote(db.Model):
         self.feedback_id = feedback_id
         self.option = option
         self.text = text
-        self.created_at = datetime.datetime.now()
+        self.created_at = arrow.utcnow()
 
     def __repr__(self):
         return '<Vote {}>'.format(self.option)
