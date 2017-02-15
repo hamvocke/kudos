@@ -16,8 +16,9 @@ a {
 header {
   background-color: #CC333F;
   color: #fafafa;
-  padding: 8px;
+  padding: 0 8px;
   font-size: 1.4em;
+  line-height: 3em;
   font-family: "Nunito", sans-serif; }
   header #logo {
     display: inline-block;
@@ -33,16 +34,23 @@ header {
   header nav {
     display: inline-block;
     vertical-align: middle;
-    font-weight: 200; }
+    font-weight: 200;
+    float: right;
+    height: 100%; }
   header ul {
-    display: inline; }
+    display: inline-block;
+    height: 100%;
+    margin-bottom: 0; }
   header li {
-    display: inline; }
+    display: inline-block;
+    height: 100%;
+    margin-bottom: 0; }
     header li a, header li a:visited {
       color: #fafafa;
       text-decoration: none;
-      padding: 24px;
-      height: 100%; }
+      padding: 0 24px;
+      height: 100%;
+      display: inline-block; }
     header li a:hover, header li a:focus, header li a:active {
       color: #ebadb2;
       text-decoration: none; }
