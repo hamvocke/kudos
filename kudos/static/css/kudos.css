@@ -3,7 +3,8 @@
 body, html {
   color: #292f36;
   background-color: #fafafa;
-  font-family: "Nunito", sans-serif; }
+  font-family: "Nunito", sans-serif;
+  height: 100%; }
 
 a {
   color: #00A0B0;
@@ -14,9 +15,10 @@ a {
     color: #00727d; }
 
 header {
-  background-color: #CC333F;
-  color: #fafafa;
+  background-color: #fafafa;
+  color: #CC333F;
   padding: 0 8px;
+  margin-bottom: 48px;
   font-size: 1.4em;
   line-height: 3em;
   font-family: "Nunito", sans-serif; }
@@ -28,7 +30,7 @@ header {
     margin: 0 24px 0 0; }
     header #logo a {
       text-decoration: none;
-      color: #fafafa; }
+      color: #CC333F; }
     header #logo i {
       font-size: 0.8em; }
   header nav {
@@ -46,7 +48,7 @@ header {
     height: 100%;
     margin-bottom: 0; }
     header li a, header li a:visited {
-      color: #fafafa;
+      color: #CC333F;
       text-decoration: none;
       padding: 0 24px;
       height: 100%;
@@ -59,9 +61,8 @@ header {
   margin-top: 48px; }
 
 #hero {
-  padding: 30px;
-  background-color: #CC333F;
-  color: #fafafa;
+  background-color: #fafafa;
+  color: #CC333F;
   text-align: center;
   font-family: "Nunito", sans-serif; }
   #hero h1 {
@@ -83,12 +84,12 @@ header {
     display: inline; }
   #messages .message {
     display: block;
-    background-color: #db7079;
+    background-color: #CC333F;
     font-size: 1.2em;
     color: white;
-    border-radius: 8px;
+    border-radius: 4px;
     width: 100%;
-    padding: 8px 12px; }
+    padding: 12px 24px; }
 
 label {
   font-weight: 400;

@@ -24,6 +24,7 @@ body, html
     color: $darkgray
     background-color: $white
     font-family: 'Nunito', sans-serif
+    height: 100%
 
 a
     color: $blue
@@ -36,9 +37,10 @@ a
         color: darken($blue, 10%)
 
 header
-    background-color: $red
-    color: $white
+    background-color: $white
+    color: $red
     padding: 0 8px
+    margin-bottom: 48px
     font-size: 1.4em
     line-height: 3em
     font-family: 'Nunito', sans-serif
@@ -52,7 +54,7 @@ header
 
         a
             text-decoration: none
-            color: $white
+            color: $red
 
         i
             font-size: 0.8em
@@ -75,7 +77,7 @@ header
         margin-bottom: 0
 
         a, a:visited
-            color: $white
+            color: $red
             text-decoration: none
             padding: 0 24px
             height: 100%
@@ -89,9 +91,8 @@ header
     margin-top: 48px
 
 #hero
-    padding: 30px
-    background-color: $red
-    color: $white
+    background-color: $white
+    color: $red
     text-align: center
     font-family: 'Nunito', sans-serif
 
@@ -119,12 +120,12 @@ header
 
     .message
         display: block
-        background-color: lighten($red, 15%)
+        background-color: $red
         font-size: 1.2em
         color: white
-        border-radius: 8px
+        border-radius: 4px
         width: 100%
-        padding: 8px 12px
+        padding: 12px 24px
 
 label
     font-weight: 400

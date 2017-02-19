@@ -18,19 +18,24 @@
     <link rel="icon" type="image/png" href="/favicon.png">
 </head>
 
+<body>
+{% block navigation %}
 <header>
     <div class="container">
         <div id="logo"><a href="/"><i class="fa fa-heart-o"></i>&nbsp;Kudos</a></div>
 
         <nav>
             <ul>
-                <li><a href="/feedback/create">+ New</a></li>
-                <li><a href="/feedback">Feedback</a></li>
                 <li><a href="/login">Login</a></li>
+                <li><a href="/feedback">My Feedback</a></li>
+                <li><a href="/feedback/create">+ New</a></li>
             </ul>
         </nav>
     </div>
 </header>
+{% endblock %}
+
+{% block messages %}
 {% with messages = get_flashed_messages() %}
 {% if messages %}
 <div id="messages" class="container">
@@ -42,6 +47,7 @@
 </div>
 {% endif %}
 {% endwith %}
+{% endblock %}
 
 {% block body %}{% endblock %}
 </body>
