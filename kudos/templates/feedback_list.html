@@ -2,11 +2,11 @@
 {% block body %}
 <section class="container">
     {% if feedbacks|length == 0 %}
-    <h1>There seems to be nothing here yet!</h1>
+    <h2>There seems to be nothing here yet!</h2>
     <p>Why don't you create your first feedback now?</p>
     <a href="{{ url_for('create_feedback') }}" class="button button-primary">Create Feedback</a>
     {% else %}
-    <h1>Your Feedback</h1>
+    <h2>Your Feedback</h2>
 
     <a href="{{ url_for('create_feedback') }}" class="button button-primary">+ Add Feedback</a>
 
