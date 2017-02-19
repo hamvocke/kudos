@@ -27,14 +27,15 @@ body, html
     height: 100%
 
 a
-    color: $blue
+    color: $red
     text-decoration: none
 
     &:hover, &:focus, &:active
+        color: $red
         text-decoration: underline
 
     &:visited
-        color: darken($blue, 10%)
+        color: darken($red, 10%)
 
 header
     background-color: $white
@@ -208,8 +209,8 @@ textarea
     padding: 4px 8px
 
     &.blue
-        background-color: $blue
-        color: $white
+        background-color: $sun
+        color: $darkgray
 
 #results
     .vote

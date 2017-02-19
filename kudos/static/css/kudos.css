@@ -7,12 +7,13 @@ body, html {
   height: 100%; }
 
 a {
-  color: #00A0B0;
+  color: #CC333F;
   text-decoration: none; }
   a:hover, a:focus, a:active {
+    color: #CC333F;
     text-decoration: underline; }
   a:visited {
-    color: #00727d; }
+    color: #a32932; }
 
 header {
   background-color: #fafafa;
@@ -180,8 +181,8 @@ textarea {
   font-size: 0.9em;
   padding: 4px 8px; }
   .badge.blue {
-    background-color: #00A0B0;
-    color: #fafafa; }
+    background-color: #fed766;
+    color: #292f36; }
 
 #results .vote {
   margin: 24px 0;
