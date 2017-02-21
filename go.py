@@ -1,9 +1,11 @@
 #! /usr/bin/env python
+import os
+from subprocess import call
+
 import click
 import pytest
 import yaml
-import os
-from subprocess import call
+
 from kudos import app, db, initial_data
 
 config = {}
@@ -25,18 +27,6 @@ def cli():
 
 
 @cli.command()
-@click.argument('environment')
-def deploy(environment):
-    marker()
-    click.echo('Deploying to ', nl=False)
-    click.echo(click.style(environment, fg='green', bold=True))
-
-    tag = '{0}/{1}:latest'.format(config.get('dockerhub_user'), config.get('project_name'))
-
-    call(['docker', 'push', tag])
-
-
-@cli.command()
 @click.argument('version', default=lambda: os.environ.get('VERSION', 'local'))
 def build(version):
     marker()
@@ -49,6 +39,24 @@ def build(version):
     tag = '{0}/{1}:{2}'.format(config.get('dockerhub_user'), project_name, version)
 
     call(['docker', 'build', directory, '-t', tag])
+
+
+@cli.command()
+def push():
+    tag = '{0}/{1}:latest'.format(
+        config.get('dockerhub_user'),
+        config.get('project_name')
+    )
+
+    call(['docker', 'push', tag])
+
+
+@cli.command()
+@click.argument('environment')
+def deploy(environment):
+    marker()
+    click.echo('Deploying to ', nl=False)
+    click.echo(click.style(environment, fg='green', bold=True))
 
 
 @cli.command()
