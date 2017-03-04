@@ -34,6 +34,15 @@ class FeedbackTest(unittest.TestCase):
         feedback = Feedback('some name', [option], 'some description', ends_at=tomorrow)
         assert feedback.status() == FeedbackStatus.ACTIVE
 
+    def test_vote(self):
+        options = [Option('some option'), Option('another option')]
+        feedback = Feedback('some name', options)
+        feedback.vote(options[0], 'some text')
+
+        assert len(feedback.votes) == 1
+        assert feedback.votes[0].option == 'some option'
+        assert feedback.votes[0].text == 'some text'
+
     def test_aggregate_votes(self):
         options = [Option('some option'), Option('another option')]
         feedback = Feedback('some name', options)
