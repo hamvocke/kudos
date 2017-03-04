@@ -1,6 +1,7 @@
 from enum import Enum
 
 import arrow
+from collections import Counter
 from sqlalchemy_utils import ArrowType
 
 from kudos import db
@@ -35,6 +36,9 @@ class Feedback(db.Model):
 
     def status(self):
         return FeedbackStatus.ACTIVE if arrow.utcnow() < self.ends_at else FeedbackStatus.CLOSED
+
+    def aggregate_votes(self):
+        return Counter([vote.option for vote in self.votes])
 
     def __init__(self, name, options=[], description=None, ends_at=None):
         self.name = name

@@ -34,6 +34,16 @@ class FeedbackTest(unittest.TestCase):
         feedback = Feedback('some name', [option], 'some description', ends_at=tomorrow)
         assert feedback.status() == FeedbackStatus.ACTIVE
 
+    def test_aggregate_votes(self):
+        options = [Option('some option'), Option('another option')]
+        feedback = Feedback('some name', options)
+        feedback.votes = [Vote(feedback.id, options[0].description),
+                          Vote(feedback.id, options[0].description),
+                          Vote(feedback.id, options[1].description)]
+
+        assert feedback.aggregate_votes() == {'some option': 2,
+                                              'another option': 1}
+
 
 class OptionTest(unittest.TestCase):
     def test_convert_to_json(self):
