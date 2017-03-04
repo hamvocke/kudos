@@ -38,6 +38,9 @@ class Feedback(db.Model):
         return FeedbackStatus.ACTIVE if arrow.utcnow() < self.ends_at else FeedbackStatus.CLOSED
 
     def vote(self, option, text=None):
+        if option not in self.options:
+            raise ValueError
+        
         self.votes.append(Vote(self.id, option.description, text))
 
     def aggregate_votes(self):

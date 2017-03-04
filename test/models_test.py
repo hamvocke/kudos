@@ -1,5 +1,6 @@
 import unittest
 
+import pytest
 from freezegun import freeze_time
 
 from kudos.models import *
@@ -42,6 +43,13 @@ class FeedbackTest(unittest.TestCase):
         assert len(feedback.votes) == 1
         assert feedback.votes[0].option == 'some option'
         assert feedback.votes[0].text == 'some text'
+
+    def test_vote_with_invalid_option(self):
+        options = [Option('some option')]
+        feedback = Feedback('some name', options)
+
+        with pytest.raises(ValueError, message="Invalid Option"):
+            feedback.vote(Option('another option'))
 
     def test_aggregate_votes(self):
         options = [Option('some option'), Option('another option')]
