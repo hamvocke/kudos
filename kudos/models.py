@@ -1,7 +1,7 @@
+from collections import Counter
 from enum import Enum
 
 import arrow
-from collections import Counter
 from sqlalchemy_utils import ArrowType
 
 from kudos import db
@@ -40,7 +40,7 @@ class Feedback(db.Model):
     def vote(self, option, text=None):
         if option not in self.options:
             raise ValueError
-        
+
         self.votes.append(Vote(self.id, option.description, text))
 
     def aggregate_votes(self):

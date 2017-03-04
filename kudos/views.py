@@ -60,8 +60,8 @@ def vote(feedback_id, option_id):
     if option is None:
         return make_response('Option (id={}) is unknown for this feedback'.format(option_id), 400)
 
-    vote = Vote(feedback.id, option.description)
-    db.session.add(vote)
+    feedback.vote(option, option.description)
+    db.session.add(feedback)
     db.session.commit()
 
     flash('Thanks for your feedback!')
