@@ -33,10 +33,18 @@ Chart.defaults.global.defaultFontFamily = "'Nunito', sans-serif"
 var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
-        labels: [":)", ":("],
+        labels: [
+        {% for result in feedback.aggregate_votes().keys() %}
+            "{{ result }}",
+        {% endfor %}
+        ],
         datasets: [{
             label: '# of Votes',
-            data: [12, 19],
+            data: [
+                {% for vote in feedback.aggregate_votes().values() %}
+                    "{{ vote }}",
+                {% endfor %}
+            ],
             backgroundColor: [
                 '#ff4d80',
                 '#fed766'
