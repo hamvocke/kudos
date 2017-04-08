@@ -3,9 +3,20 @@
 <section id="results" class="container">
     <h2>Your feedback for '<em>{{ feedback.name }}</em>'</h2>
 
-    <div>
-        <strong>{{ feedback.votes|length }}</strong> votes so far
+    <div id="statistics">
+        <div class="stat">
+            <div class="number">{{ feedback.votes|length }}</div>
+            <div class="description">votes</div>
+        </div>
+
+        {% for result in feedback.aggregate_votes().most_common() %}
+        <div class="stat">
+            <div class="number">{{ result[1] }}</div>
+            <div class="description"><span class="badge"></span>{{ result[0] }}</div>
+        </div>
+        {% endfor %}
     </div>
+
 
     <canvas id="resultsChart" class="chart" width="400" height="400"></canvas>
 
@@ -18,7 +29,8 @@
         <div class="vote">
             <div class="option">{{ vote.option }}</div>
             <div>
-                <div class="meta"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ vote.created_at.humanize() }}</div>
+                <div class="meta"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ vote.created_at.humanize() }}
+                </div>
                 <div class="comment">{{ vote.text }}</div>
             </div>
         </div>
@@ -58,5 +70,6 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
 </script>
 {% endblock %}

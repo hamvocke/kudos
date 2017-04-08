@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-<section class="container">
+<section id="feedback_list" class="container">
     {% if feedbacks|length == 0 %}
     <h2>There seems to be nothing here yet!</h2>
     <p>Why don't you create your first feedback now?</p>
@@ -13,7 +13,6 @@
     <table class="u-full-width">
         <thead>
         <tr>
-            <th>Id</th>
             <th>Title</th>
             <th>Status</th>
             <th>Created</th>
@@ -24,9 +23,6 @@
         <tbody>
         {% for feedback in feedbacks %}
         <tr>
-            <td>
-                {{ feedback.id }}
-            </td>
             <td>
                 <a href="{{ url_for('feedback', feedback_id=feedback.id)}}">{{ feedback.name }}</a>
             </td>

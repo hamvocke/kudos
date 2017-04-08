@@ -185,6 +185,22 @@ textarea {
     background-color: #fed766;
     color: #292f36; }
 
+#results #statistics {
+  text-align: right;
+  float: right;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px; }
+  #results #statistics .stat {
+    text-align: center;
+    display: inline-block;
+    margin: 8px;
+    padding: 8px 24px;
+    border-right: 1px solid #e1e1e1; }
+  #results #statistics .stat:last-child {
+    border-right: none; }
+  #results #statistics .number {
+    font-size: 2.6em;
+    font-weight: 600; }
 #results .vote {
   margin: 24px 0;
   padding: 12px;
