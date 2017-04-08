@@ -26,6 +26,7 @@ setup() {
 
   echo -e "\e[33m★\e[39m Installing Python dependencies"
   pip install -r $dir/requirements.txt
+  gem install sass
 }
 
 if [[ $action == "setup" ]]; then
