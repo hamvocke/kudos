@@ -20,9 +20,12 @@ setup() {
 
   echo -e "\e[33m★\e[39m Setting up virtualenv"
   pip install virtualenv
-  virtualenv $dir/venv
+  virtualenv -p python3 $dir/venv
 
   activate_virtualenv
+
+  echo -e "\e[33m★\e[39m Installing Postgesql"
+  sudo apt install postgresql
 
   echo -e "\e[33m★\e[39m Installing Python dependencies"
   pip install -r $dir/requirements.txt
