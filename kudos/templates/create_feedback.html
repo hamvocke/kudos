@@ -39,7 +39,27 @@
         </div>
 
         <div class="row">
-            <div class="u-full-width">
+          {{ form.options.label }}
+          <div class="u-full-width">
+            <span class="box">😍</span>
+
+            <span class="box add">+</span>
+
+            <div class="options">
+              <span class="box option">😀</span>
+              <span class="box option">😊</span>
+              <span class="box option">😋</span>
+              <span class="box option">😍</span>
+              <span class="box option">😎</span>
+              <span class="box option">😐</span>
+              <span class="box option">😑</span>
+              <span class="box option">😒</span>
+              <span class="box option">😕</span>
+              <span class="box option">😖</span>
+              <span class="box option">😱</span>
+              <span class="box option">😡</span>
+
+            </div>
                 {% for subfield in form.options %}
                 <div class="option">
                     <span>{{ subfield }}</span>
