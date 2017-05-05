@@ -27,6 +27,10 @@ setup() {
   echo -e "\e[33m★\e[39m Installing Postgesql"
   sudo apt install postgresql
 
+
+  echo -e "\e[33m★\e[39m Installing sass"
+  gem install sass
+
   echo -e "\e[33m★\e[39m Installing Python dependencies"
   pip install -r $dir/requirements.txt
 }
