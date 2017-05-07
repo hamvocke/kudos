@@ -16,13 +16,13 @@
             </div>
 
             <div class="one-half column">
-              {{ form.email.label }}
-              {{ form.email(placeholder='me@example.com', class_='u-full-width') }}
-              {% for error in form.email.errors %}
-              <div class="form_error">{{ error }}</div>
-              {% endfor %}
-              <p class="hint">We won't send spam, promised! We'll need this to send you an admin link that will show
-                  the results of your feedback</p>
+                {{ form.email.label }}
+                {{ form.email(placeholder='me@example.com', class_='u-full-width') }}
+                {% for error in form.email.errors %}
+                <div class="form_error">{{ error }}</div>
+                {% endfor %}
+                <p class="hint">We won't send spam, promised! We'll need this to send you an admin link that will show
+                    the results of your feedback</p>
             </div>
         </div>
 
@@ -39,37 +39,40 @@
         </div>
 
         <div class="row">
-          {{ form.options.label }}
-          <div class="u-full-width">
-            <span class="box">😍</span>
-
-            <span class="box add">+</span>
-
-            <div class="options">
-              <span class="box option">😀</span>
-              <span class="box option">😊</span>
-              <span class="box option">😋</span>
-              <span class="box option">😍</span>
-              <span class="box option">😎</span>
-              <span class="box option">😐</span>
-              <span class="box option">😑</span>
-              <span class="box option">😒</span>
-              <span class="box option">😕</span>
-              <span class="box option">😖</span>
-              <span class="box option">😱</span>
-              <span class="box option">😡</span>
-
-            </div>
-                {% for subfield in form.options %}
-                <div class="option">
-                    <span>{{ subfield }}</span>
-                    <span>{{ subfield.label }}</span>
+            <div class="eight columns">
+                {{ form.options.label }}
+                <div class="selected-options">
+                    <span class="box">😍</span>
+                    <span class="box add">+</span>
                 </div>
-                {% endfor %}
+
                 <p class="hint">Choose a set of feedback options that works best for the feedback you want to achieve.
-                Think about the tone of voice, the number of options and the visual style you need.</p>
+                    Think about the tone of voice, the number of options and the visual style you need.</p>
+            </div>
+            <div class="four columns">
+                <div class="options">
+                    <span class="box option">😀</span>
+                    <span class="box option">😊</span>
+                    <span class="box option">😋</span>
+                    <span class="box option">😍</span>
+                    <span class="box option">😎</span>
+                    <span class="box option">😐</span>
+                    <span class="box option">😑</span>
+                    <span class="box option">😒</span>
+                    <span class="box option">😕</span>
+                    <span class="box option">😖</span>
+                    <span class="box option">😱</span>
+                    <span class="box option">😡</span>
+
+                </div>
             </div>
         </div>
+        {% for subfield in form.options %}
+        <div class="option">
+            <span>{{ subfield }}</span>
+            <span>{{ subfield.label }}</span>
+        </div>
+        {% endfor %}
 
         <div class="row">
             {{ form.submit(class_='button-primary') }}
