@@ -112,7 +112,7 @@ class RestApiTestCase(unittest.TestCase):
 
     def test_should_vote_on_feedback(self):
         option = self.create_option('some option')
-        feedback = self.create_feedback('soome feedback', [option])
+        feedback = self.create_feedback('some feedback', [option])
 
         vote_data = {'option': option.id}
         response = self.app.post('/api/feedback/{}/vote'.format(feedback.id), data=vote_data)
@@ -132,7 +132,7 @@ class RestApiTestCase(unittest.TestCase):
 
     def test_should_return_404_on_unknown_vote_option(self):
         option = self.create_option('some option')
-        feedback = self.create_feedback('soome feedback', [option])
+        feedback = self.create_feedback('some feedback', [option])
 
         vote_data = {'option': 99}
         response = self.app.post('/api/feedback/{}/vote'.format(feedback.id), data=vote_data)
@@ -141,7 +141,7 @@ class RestApiTestCase(unittest.TestCase):
 
     def test_should_return_400_on_missing_vote_option(self):
         option = self.create_option('some option')
-        feedback = self.create_feedback('soome feedback', [option])
+        feedback = self.create_feedback('some feedback', [option])
 
         response = self.app.post('/api/feedback/{}/vote'.format(feedback.id), data=None)
 

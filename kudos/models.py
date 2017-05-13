@@ -82,7 +82,7 @@ class Vote(db.Model):
 
 class Option(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    feedback_id = db.Column(db.Integer, db.ForeignKey('option_set.id'))
+    feedback_id = db.Column(db.Integer, db.ForeignKey('feedback.id'))
     description = db.Column(db.String(50), unique=True)
 
     def serialize(self):
@@ -96,19 +96,6 @@ class Option(db.Model):
 
     def __repr__(self):
         return '<Option {}>'.format(self.description)
-
-
-class OptionSet(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True)
-    options = db.relationship('Option')
-
-    def __init__(self, name, options):
-        self.name = name
-        self.options = options
-
-    def __repr__(self):
-        return '<OptionSet {}>'.format(self.name)
 
 
 class FeedbackStatus(Enum):

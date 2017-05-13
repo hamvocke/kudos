@@ -1,26 +1,24 @@
 import unittest
 
 from kudos import app, db
-from kudos.models import Feedback, OptionSet, Option, Vote
+from kudos.models import Feedback, Option, Vote
 
 
-def save_feedback(name, option_set=None, description=None):
-    feedback = Feedback(name, option_set.options if option_set is not None else [], description)
+def save_feedback(name, options=[], description=None):
+    feedback = Feedback(name, options, description)
     db.session.add(feedback)
     db.session.commit()
     return feedback
 
 
-def save_option_set(name, options):
+def save_options(options):
     options_to_save = [Option(option) for option in options]
 
     for option in options_to_save:
         db.session.add(option)
 
-    option_set = OptionSet(name, options_to_save)
-    db.session.add(option_set)
     db.session.commit()
-    return option_set
+    return options_to_save
 
 
 class ViewTestCase(unittest.TestCase):
@@ -28,8 +26,8 @@ class ViewTestCase(unittest.TestCase):
         app.config.from_object('config.TestingConfig')
         self.app = app.test_client()
         db.create_all()
-        self.option_set = save_option_set('Emoticons', [':(', ':)'])
-        self.feedback_dict = dict(email='someMail@example.com', name='test', options=self.option_set.id,
+        self.options = save_options([':(', ':)'])
+        self.feedback_dict = dict(email='someMail@example.com', name='test', options=self.options[0].id,
                                   description='some description')
 
     def tearDown(self):
@@ -60,7 +58,7 @@ class ViewTestCase(unittest.TestCase):
         saved_feedback = Feedback.query.first()
         assert saved_feedback.name == 'test'
         assert saved_feedback.description == 'some description'
-        assert len(saved_feedback.options) == 2
+        assert len(saved_feedback.options) == 1
 
     def test_should_find_all_feedback(self):
         save_feedback('somefeedback')
@@ -87,33 +85,33 @@ class ViewTestCase(unittest.TestCase):
         assert response.status_code == 404
 
     def test_should_flash_message_after_voting(self):
-        feedback = save_feedback('somefeedback', self.option_set)
-        response = self.app.post('/feedback/{}/vote/{}'.format(feedback.id, self.option_set.options[0].id),
+        feedback = save_feedback('somefeedback', self.options)
+        response = self.app.post('/feedback/{}/vote/{}'.format(feedback.id, self.options[0].id),
                                  follow_redirects=True)
         assert response.status_code == 200
         assert b"Thanks for your feedback!" in response.data
 
     def test_should_return_error_for_invalid_vote(self):
-        feedback = save_feedback('somefeedback', self.option_set)
+        feedback = save_feedback('somefeedback', self.options)
         response = self.app.post('/feedback/{}/vote/{}'.format(feedback.id, 99))
         assert response.status_code == 400
         assert b"Option (id=99) is unknown for this feedback" in response.data
 
     def test_should_save_vote(self):
-        feedback = save_feedback('somefeedback', self.option_set)
-        self.app.post('/feedback/{}/vote/{}'.format(feedback.id, self.option_set.options[0].id))
+        feedback = save_feedback('somefeedback', self.options)
+        self.app.post('/feedback/{}/vote/{}'.format(feedback.id, self.options[0].id))
         saved_votes = Vote.query.all()
         assert len(saved_votes) == 1
         assert saved_votes[0].option == ':('
 
     def test_should_redirect_after_vote(self):
-        feedback = save_feedback('somefeedback', self.option_set)
-        response = self.app.post('/feedback/{}/vote/{}'.format(feedback.id, self.option_set.options[0].id))
+        feedback = save_feedback('somefeedback', self.options)
+        response = self.app.post('/feedback/{}/vote/{}'.format(feedback.id, self.options[0].id))
         assert response.status_code == 302
 
     def test_should_show_feedback_results(self):
-        feedback = save_feedback('somefeedback', self.option_set)
-        self.app.post('/feedback/{}/{}'.format(feedback.id, self.option_set.options[0].id))
+        feedback = save_feedback('somefeedback', self.options)
+        self.app.post('/feedback/{}/{}'.format(feedback.id, self.options[0].id))
 
         response = self.app.get('/feedback/{}/results'.format(feedback.id))
         expected_body = "Your feedback for '<em>{}</em>'".format(feedback.name)

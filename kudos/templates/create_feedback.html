@@ -63,16 +63,12 @@
                     <span class="box option">😖</span>
                     <span class="box option">😱</span>
                     <span class="box option">😡</span>
-
                 </div>
             </div>
         </div>
-        {% for subfield in form.options %}
         <div class="option">
-            <span>{{ subfield }}</span>
-            <span>{{ subfield.label }}</span>
+            {{ form.options() }}
         </div>
-        {% endfor %}
 
         <div class="row">
             {{ form.submit(class_='button-primary') }}

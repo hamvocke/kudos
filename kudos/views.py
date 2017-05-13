@@ -7,7 +7,7 @@ from kudos import app
 from kudos import db
 from kudos import qr
 from kudos.forms import CreateFeedbackForm
-from kudos.models import Feedback, OptionSet, Option, Vote
+from kudos.models import Feedback, Option
 
 
 @app.route('/', methods=['GET'])
@@ -24,10 +24,11 @@ def all_feedback():
 @app.route('/feedback/create', methods=['POST', 'GET'])
 def create_feedback():
     form = CreateFeedbackForm()
-    form.options.choices = [(option.id, option.name) for option in OptionSet.query.all()]
+    form.options.choices = [(option.id, option.description) for option in Option.query.all()]
+    print(form.options)
     if form.validate_on_submit():
-        option_set = OptionSet.query.get(form.options.data)
-        feedback = Feedback(form.name.data, option_set.options, form.description.data)
+        options = [Option.query.get(option_id) for option_id in form.options.data]
+        feedback = Feedback(form.name.data, options, form.description.data)
         db.session.add(feedback)
         db.session.commit()
 
