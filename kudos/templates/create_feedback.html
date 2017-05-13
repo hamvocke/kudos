@@ -7,7 +7,7 @@
 
         <div class="row">
             <div class="one-half column">
-                {{ form.name.label }}
+                {{ form.name.label }} {% if form.name.flags.required %}*{% endif %}
                 {{ form.name(placeholder='My retrospective', required='required', class_='u-full-width') }}
                 {% for error in form.name.errors %}
                 <div class="form_error">{{ error }}</div>
@@ -16,7 +16,7 @@
             </div>
 
             <div class="one-half column">
-                {{ form.email.label }}
+                {{ form.email.label }} {% if form.email.flags.required %}*{% endif %}
                 {{ form.email(placeholder='me@example.com', class_='u-full-width') }}
                 {% for error in form.email.errors %}
                 <div class="form_error">{{ error }}</div>
@@ -28,7 +28,7 @@
 
         <div class="row">
             <div class="u-full-width">
-                {{ form.description.label }}
+                {{ form.description.label }} {% if form.description.flags.required %}*{% endif %}
                 {{ form.description(class_='u-full-width', rows=8) }}
                 {% for error in form.description.errors %}
                 <div class="form_error">{{ error }}</div>
@@ -40,7 +40,7 @@
 
         <div class="row">
             <div class="eight columns">
-                {{ form.options.label }}
+                {{ form.options.label }} {% if form.options.flags.required %}*{% endif %}
                 <div class="selected-options">
                     <span class="box">😍</span>
                     <span class="box add">+</span>
