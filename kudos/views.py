@@ -25,7 +25,6 @@ def all_feedback():
 def create_feedback():
     form = CreateFeedbackForm()
     form.options.choices = [(option.id, option.description) for option in Option.query.all()]
-    print(form.options)
     if form.validate_on_submit():
         options = [Option.query.get(option_id) for option_id in form.options.data]
         feedback = Feedback(form.name.data, options, form.description.data)
