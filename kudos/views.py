@@ -48,7 +48,7 @@ def feedback(feedback_id):
     return render_template('feedback.html', feedback=feedback)
 
 
-@app.route('/feedback/<int:feedback_id>/vote/<int:option_id>', methods=['GET', 'POST'])
+@app.route('/feedback/<int:feedback_id>/vote/<int:option_id>', methods=['POST'])
 def vote(feedback_id, option_id):
     feedback = Feedback.query.get(feedback_id)
 
