@@ -74,11 +74,13 @@ class ViewTestCase(unittest.TestCase):
         assert b"There seems to be nothing here yet" in response.data
 
     def test_should_get_single_feedback(self):
-        feedback = save_feedback('somefeedback', description='some description')
+        feedback = save_feedback('somefeedback', options=self.options, description='some description')
         response = self.app.get('/feedback/{}'.format(feedback.id))
         assert response.status_code == 200
         assert b"<h2>somefeedback</h2>" in response.data
         assert b"some description" in response.data
+        assert b":)" in response.data
+        assert b":(" in response.data
 
     def test_should_return_404_for_unknown_feedback(self):
         response = self.app.get('/feedback/100')
