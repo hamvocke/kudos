@@ -1,0 +1,28 @@
+{
+  "name": "kudos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hamvocke/kudos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hamvocke/kudos/issues"
+  },
+  "homepage": "https://github.com/hamvocke/kudos#readme",
+  "devDependencies": {
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-mocha": "^1.3.0",
+    "mocha": "^3.5.0"
+  }
+}

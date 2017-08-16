@@ -89,6 +89,13 @@ def initdb():
     initial_data.init_db()
 
 
+@cli.command()
+def frontend_test():
+    marker()
+    click.echo('Running frontend tests')
+    call(['npm', 'test'])
+
+
 if __name__ == '__main__':
     load_config()
     cli()
