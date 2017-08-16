@@ -51,23 +51,14 @@
             </div>
             <div class="four columns">
                 <div class="options">
-                    <span class="box option">😀</span>
-                    <span class="box option">😊</span>
-                    <span class="box option">😋</span>
-                    <span class="box option">😍</span>
-                    <span class="box option">😎</span>
-                    <span class="box option">😐</span>
-                    <span class="box option">😑</span>
-                    <span class="box option">😒</span>
-                    <span class="box option">😕</span>
-                    <span class="box option">😖</span>
-                    <span class="box option">😱</span>
-                    <span class="box option">😡</span>
+                  {% for choice in form.options.choices %}
+                    <span class="box option">{{ choice[1] }}</span>
+                  {% endfor %}
                 </div>
             </div>
         </div>
         <div class="option">
-            {{ form.options() }}
+            {{ form.options(class_='option-select', size=10) }}
         </div>
 
         <div class="row">
