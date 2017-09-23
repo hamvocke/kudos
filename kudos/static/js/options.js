@@ -25,9 +25,11 @@ const removeOption = (event) => {
   toggle(event.target.innerHTML);
 };
 
-export default function init() {
+const init = () => {
   const options = document.querySelectorAll('.box.option');
   for (option of options) {
     option.addEventListener('click', selectOption);
   };
 }
+
+init();

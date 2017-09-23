@@ -111,27 +111,8 @@ select {
   color: red;
   font-size: 0.9em; }
 
-.option {
-  display: inline-block;
-  margin-right: 12px; }
-  .option:last-child {
-    margin-right: 0; }
-
 .hint {
   color: #8794a4; }
-
-.boxes {
-  margin-bottom: 12px; }
-
-.box {
-  border: 1px solid #e1e1e1;
-  border-radius: 4px;
-  padding: 4px 16px;
-  font-size: 2em;
-  margin: 4px;
-  display: inline-block; }
-  .box.add {
-    border-style: dashed; }
 
 .button.button-primary,
 button.button-primary,
@@ -196,6 +177,24 @@ textarea {
   .badge.blue {
     background-color: #fed766;
     color: #292f36; }
+
+#create-feedback .box {
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  padding: 4px 16px;
+  font-size: 2em;
+  margin: 4px;
+  display: inline-block; }
+  #create-feedback .box.add {
+    border-style: dashed; }
+#create-feedback .options {
+  display: flex;
+  flex-wrap: wrap; }
+#create-feedback .option {
+  display: inline-block;
+  margin-right: 12px; }
+  #create-feedback .option:last-child {
+    margin-right: 0; }
 
 #results #statistics {
   text-align: right;

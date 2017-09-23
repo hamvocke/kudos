@@ -73,7 +73,6 @@ def test():
 def run(environment):
     marker()
     os.environ['APP_PROFILE'] = environment
-    build_frontend()
     click.echo('Starting server')
     app.run()
 
@@ -99,10 +98,6 @@ def frontend_test():
     build_frontend()
     call(['npm', 'test'])
 
-
-def build_frontend():
-    click.echo('Bundling assets')
-    call(['npm', 'run', 'build'])
 
 if __name__ == '__main__':
     load_config()
