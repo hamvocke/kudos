@@ -50,5 +50,9 @@
 {% endblock %}
 
 {% block body %}{% endblock %}
+
+{% block javascript %}
+<script src="{{url_for('static', filename='dist/bundle.js')}}"></script>
+{% endblock %}
 </body>
 </html>

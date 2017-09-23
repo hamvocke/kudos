@@ -6,3 +6,4 @@ __pycache__
 instance/
 .sass-cache/
 node_modules/
+kudos/static/dist/

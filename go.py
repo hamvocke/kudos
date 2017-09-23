@@ -33,6 +33,8 @@ def build(version):
     click.echo('Building version ', nl=False)
     click.echo(click.style(version, fg='green', bold=True))
 
+    build_frontend()
+
     directory = os.path.dirname(__file__)
     directory_name = os.getcwd().split(os.sep)[-1]
     project_name = config.get('project_name', directory_name)
@@ -71,6 +73,7 @@ def test():
 def run(environment):
     marker()
     os.environ['APP_PROFILE'] = environment
+    build_frontend()
     click.echo('Starting server')
     app.run()
 
@@ -93,8 +96,13 @@ def initdb():
 def frontend_test():
     marker()
     click.echo('Running frontend tests')
+    build_frontend()
     call(['npm', 'test'])
 
+
+def build_frontend():
+    click.echo('Bundling assets')
+    call(['npm', 'run', 'build'])
 
 if __name__ == '__main__':
     load_config()
