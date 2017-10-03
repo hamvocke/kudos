@@ -45,6 +45,10 @@
                     <span class="box add">+</span>
                 </div>
 
+                {% for error in form.options.errors %}
+                <div class="form_error">{{ error }}</div>
+                {% endfor %}
+
                 <p class="hint">Choose a set of answers that works best for the feedback you want to achieve. Think about the tone of voice, the number of options and the visual style you need.</p>
             </div>
             <div class="four columns">

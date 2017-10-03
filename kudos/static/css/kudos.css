@@ -195,6 +195,8 @@ textarea {
   margin-right: 12px; }
   #create-feedback .option:last-child {
     margin-right: 0; }
+#create-feedback .option-select {
+  visibility: hidden; }
 
 #results #statistics {
   text-align: right;
