@@ -33,8 +33,6 @@ def build(version):
     click.echo('Building version ', nl=False)
     click.echo(click.style(version, fg='green', bold=True))
 
-    build_frontend()
-
     directory = os.path.dirname(__file__)
     directory_name = os.getcwd().split(os.sep)[-1]
     project_name = config.get('project_name', directory_name)
@@ -89,14 +87,6 @@ def initdb():
     db.drop_all()
     db.create_all()
     initial_data.init_db()
-
-
-@cli.command()
-def frontend_test():
-    marker()
-    click.echo('Running frontend tests')
-    build_frontend()
-    call(['npm', 'test'])
 
 
 if __name__ == '__main__':
