@@ -1,0 +1,22 @@
+language: python
+
+python:
+    - '3.5'
+
+env:
+    - VERSION=$TRAVIS_BUILD_NUMBER
+
+sudo: required
+
+services:
+    - docker
+
+install: "./go setup"
+
+before_script: "./start_database.sh"
+
+script:
+    - "./go test"
+    - "./go build"
+    - "./go push"
+
