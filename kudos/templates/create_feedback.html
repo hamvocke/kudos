@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-<section class="container">
+<section class="container" id="create-feedback">
     <h2>Get your feedback. It's super simple!</h2>
     <form action="{{ url_for('create_feedback') }}" method="post">
         {{ form.hidden_tag() }}
@@ -42,32 +42,21 @@
             <div class="eight columns">
                 {{ form.options.label }} {% if form.options.flags.required %}*{% endif %}
                 <div class="selected-options">
-                    <span class="box">😍</span>
                     <span class="box add">+</span>
                 </div>
 
-                <p class="hint">Choose a set of feedback options that works best for the feedback you want to achieve.
-                    Think about the tone of voice, the number of options and the visual style you need.</p>
+                <p class="hint">Choose a set of answers that works best for the feedback you want to achieve. Think about the tone of voice, the number of options and the visual style you need.</p>
             </div>
             <div class="four columns">
                 <div class="options">
-                    <span class="box option">😀</span>
-                    <span class="box option">😊</span>
-                    <span class="box option">😋</span>
-                    <span class="box option">😍</span>
-                    <span class="box option">😎</span>
-                    <span class="box option">😐</span>
-                    <span class="box option">😑</span>
-                    <span class="box option">😒</span>
-                    <span class="box option">😕</span>
-                    <span class="box option">😖</span>
-                    <span class="box option">😱</span>
-                    <span class="box option">😡</span>
+                  {% for choice in form.options.choices %}
+                    <span class="box option">{{ choice[1] }}</span>
+                  {% endfor %}
                 </div>
             </div>
         </div>
         <div class="option">
-            {{ form.options() }}
+            {{ form.options(class_='option-select', size=10) }}
         </div>
 
         <div class="row">
@@ -75,4 +64,6 @@
         </div>
     </form>
 </section>
+
+<script src="{{url_for('static', filename='js/options.js')}}"></script>
 {% endblock %}

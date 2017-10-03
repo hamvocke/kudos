@@ -25,7 +25,6 @@ def all_feedback():
 def create_feedback():
     form = CreateFeedbackForm()
     form.options.choices = [(option.id, option.description) for option in Option.query.all()]
-    print(form.options)
     if form.validate_on_submit():
         options = [Option.query.get(option_id) for option_id in form.options.data]
         feedback = Feedback(form.name.data, options, form.description.data)
@@ -49,7 +48,7 @@ def feedback(feedback_id):
     return render_template('feedback.html', feedback=feedback)
 
 
-@app.route('/feedback/<int:feedback_id>/vote/<int:option_id>', methods=['GET', 'POST'])
+@app.route('/feedback/<int:feedback_id>/vote/<int:option_id>', methods=['POST'])
 def vote(feedback_id, option_id):
     feedback = Feedback.query.get(feedback_id)
 
