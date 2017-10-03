@@ -10,10 +10,12 @@ sudo: required
 
 services:
     - docker
+    - postgresql
 
 install: "./go setup"
 
-before_script: "./startDatabase.sh"
+before_script:
+  - psql -c 'create database kudos;' -U postgres
 
 script:
     - "./go test"
