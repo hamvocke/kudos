@@ -76,7 +76,7 @@ class RestApiTestCase(unittest.TestCase):
         assert response.status_code == 200
         assert response.mimetype == 'application/json'
         assert json.loads(response.data) == {
-            'feedbacks': [
+            'feedback': [
                 some_feedback.serialize(),
                 another_feedback.serialize()
             ]
@@ -99,7 +99,8 @@ class RestApiTestCase(unittest.TestCase):
         option2 = self.create_option('another option')
         feedback = {
             'name': 'My Test Feedback',
-            'options': [option1.id, option2.id]
+            'options': [option1.id, option2.id],
+            'description': 'some description'
         }
 
         response = self.app.post('/api/feedback', data=feedback)
@@ -108,6 +109,7 @@ class RestApiTestCase(unittest.TestCase):
         assert response.status_code == 201
         assert parsed_response['id'] is not None
         assert parsed_response['name'] == 'My Test Feedback'
+        assert parsed_response['description'] == 'some description'
         assert len(parsed_response['options']) == 2
 
     def test_should_vote_on_feedback(self):

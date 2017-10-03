@@ -7,7 +7,7 @@ from kudos import app, models, db
 class FeedbackListApi(MethodView):
     def get(self):
         feedback_list = models.Feedback.query.all()
-        return jsonify({'feedbacks': [feedback.serialize() for feedback in feedback_list]})
+        return jsonify({'feedback': [feedback.serialize() for feedback in feedback_list]})
 
     def post(self):
         if not request.form or not request.form['name']:
@@ -17,7 +17,7 @@ class FeedbackListApi(MethodView):
         if None in options:
             abort(400, 'invalid option')
 
-        feedback = models.Feedback(request.form['name'], options)
+        feedback = models.Feedback(request.form['name'], options, request.form['description'])
         db.session.add(feedback)
         db.session.commit()
 
