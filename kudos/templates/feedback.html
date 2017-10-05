@@ -20,8 +20,11 @@
 
     <div class="options">
         {% for option in feedback.options %}
-        <a class="button button-primary big option" href="{{ url_for('vote', feedback_id=feedback.id,
-      option_id=option.id) }}">{{ option.description }}</a>
+        <form action="{{ url_for('vote', feedback_id=feedback.id) }}" method="post">
+            <input type="text" name="option" value="{{ option.id }}">
+            <input type="text" name="text">
+            <button class="button button-primary big option" type="submit">{{ option.description }}</button>
+        </form>
         {% endfor %}
     </div>
 </section>

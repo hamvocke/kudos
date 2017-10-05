@@ -145,8 +145,9 @@ input.button-primary[type="button"] {
   input.button-primary[type="submit"].big,
   input.button-primary[type="reset"].big,
   input.button-primary[type="button"].big {
-    padding: 4px 30px;
-    height: 100%; }
+    padding: 4px 18px;
+    height: 100%;
+    font-size: 2em; }
 
 textarea {
   height: 100%; }
@@ -236,5 +237,18 @@ textarea {
   margin: auto;
   max-width: 300px;
   max-height: 300px; }
+
+#feedback .options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
+  #feedback .options button {
+    margin: 8px; }
+  #feedback .options form {
+    display: inline; }
+  #feedback .options input[name='option'] {
+    display: none; }
+  #feedback .options input[name='text'] {
+    display: none; }
 
 /*# sourceMappingURL=kudos.css.map */

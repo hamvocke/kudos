@@ -88,27 +88,42 @@ class ViewTestCase(unittest.TestCase):
 
     def test_should_flash_message_after_voting(self):
         feedback = save_feedback('somefeedback', self.options)
-        response = self.app.post('/feedback/{}/vote/{}'.format(feedback.id, self.options[0].id),
+        vote = {
+            'option': self.options[0].id,
+            'text': 'some text'
+        }
+        response = self.app.post('/feedback/{}/vote/'.format(feedback.id), data=vote,
                                  follow_redirects=True)
         assert response.status_code == 200
         assert b"Thanks for your feedback!" in response.data
 
     def test_should_return_error_for_invalid_vote(self):
         feedback = save_feedback('somefeedback', self.options)
-        response = self.app.post('/feedback/{}/vote/{}'.format(feedback.id, 99))
+        vote = {
+            'option': 99
+        }
+        response = self.app.post('/feedback/{}/vote/'.format(feedback.id), data=vote)
         assert response.status_code == 400
         assert b"Option (id=99) is unknown for this feedback" in response.data
 
     def test_should_save_vote(self):
         feedback = save_feedback('somefeedback', self.options)
-        self.app.post('/feedback/{}/vote/{}'.format(feedback.id, self.options[0].id))
+        vote = {
+            'option': self.options[0].id,
+            'text': 'some text'
+        }
+        self.app.post('/feedback/{}/vote/'.format(feedback.id), data=vote)
         saved_votes = Vote.query.all()
         assert len(saved_votes) == 1
         assert saved_votes[0].option == ':('
 
     def test_should_redirect_after_vote(self):
         feedback = save_feedback('somefeedback', self.options)
-        response = self.app.post('/feedback/{}/vote/{}'.format(feedback.id, self.options[0].id))
+        vote = {
+            'option': self.options[0].id,
+            'text': 'some text'
+        }
+        response = self.app.post('/feedback/{}/vote/'.format(feedback.id), data=vote)
         assert response.status_code == 302
 
     def test_should_show_feedback_results(self):

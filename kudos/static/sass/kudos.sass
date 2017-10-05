@@ -168,8 +168,9 @@ input.button-primary[type="button"]
         text-decoration: none
 
     &.big
-        padding: 4px 30px
+        padding: 4px 18px
         height: 100%
+        font-size: 2em
 
 textarea
     height: 100%
@@ -279,3 +280,21 @@ textarea
         margin: auto
         max-width: 300px
         max-height: 300px
+
+#feedback
+    .options
+        display: flex
+        flex-wrap: wrap
+        justify-content: center
+
+        button
+            margin: 8px
+
+        form
+            display: inline
+
+        input[name='option']
+            display: none
+
+        input[name='text']
+            display: none

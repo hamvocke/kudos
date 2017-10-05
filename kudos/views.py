@@ -1,7 +1,6 @@
 from io import BytesIO
 
-from flask import render_template, redirect, url_for, flash, abort, make_response
-from flask import send_file
+from flask import render_template, redirect, url_for, flash, abort, make_response, send_file, request
 
 from kudos import app
 from kudos import db
@@ -48,18 +47,22 @@ def feedback(feedback_id):
     return render_template('feedback.html', feedback=feedback)
 
 
-@app.route('/feedback/<int:feedback_id>/vote/<int:option_id>', methods=['POST'])
-def vote(feedback_id, option_id):
+@app.route('/feedback/<int:feedback_id>/vote/', methods=['POST'])
+def vote(feedback_id):
     feedback = Feedback.query.get(feedback_id)
 
     if feedback is None:
         abort(404)
 
+    option_id = request.form['option']
+    text = request.form.get('text')
+
     option = Option.query.get(option_id)
+
     if option is None:
         return make_response('Option (id={}) is unknown for this feedback'.format(option_id), 400)
 
-    feedback.vote(option, option.description)
+    feedback.vote(option, text)
     db.session.add(feedback)
     db.session.commit()
 
