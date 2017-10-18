@@ -3,28 +3,54 @@
 <section id="results" class="container">
     <h2>Your feedback for '<em>{{ feedback.name }}</em>'</h2>
 
-    <div id="statistics">
-        <div class="stat">
-            <div class="number">{{ feedback.votes|length }}</div>
-            <div class="description">votes</div>
-        </div>
+    <div>{{ feedback.description }}</div>
 
-        {% for result in feedback.aggregate_votes().most_common() %}
-        <div class="stat">
-            <div class="number">{{ result[1] }}</div>
-            <div class="description"><span class="badge"></span>{{ result[0] }}</div>
+    <hr>
+
+    <div class="row">
+        <div class="six columns">
+
+            <h3>Statistics</h3>
+            <div id="statistics">
+                <div class="stat">
+                    <div class="number">{{ feedback.votes|length }}</div>
+                    <div class="description">votes</div>
+                </div>
+
+                {% for result in feedback.aggregate_votes().most_common() %}
+                <div class="stat">
+                    <div class="number">{{ result[1] }}</div>
+                    <div class="description"><span class="badge"></span>{{ result[0] }}</div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
+        <div class="six columns">
+            <canvas id="resultsChart" class="chart"></canvas>
+        </div>
     </div>
 
+    <hr>
 
-    <canvas id="resultsChart" class="chart" width="400" height="400"></canvas>
-
-    <div>
+    <div class="row">
+        <h3>Share</h3>
         <img src="{{ url_for('get_qrcode', feedback_id=feedback.id) }}">
+
+
+
+        <a href="{{ url_for('feedback_kiosk', feedback_id=feedback.id) }}">
+            <i class="fa fa-television" aria-hidden="true"></i> Public display
+        </a>
+
+        <a href="{{ url_for('feedback', feedback_id=feedback.id) }}">
+            <i class="fa fa-comment" aria-hidden="true"></i> Personal Feedback
+        </a>
     </div>
 
-    <div>
+    <hr>
+
+    <div class="row">
+        <h3>Votes and Comments</h3>
         {% for vote in feedback.votes|sort(true, attribute='created_at') %}
         <div class="vote">
             <div class="option">{{ vote.option }}</div>
@@ -74,6 +100,11 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+
+
+
+
 
 </script>
 {% endblock %}

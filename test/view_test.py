@@ -73,9 +73,18 @@ class ViewTestCase(unittest.TestCase):
         assert response.status_code == 200
         assert b"There seems to be nothing here yet" in response.data
 
-    def test_should_get_single_feedback(self):
+    def test_should_show_feedback_page(self):
         feedback = save_feedback('somefeedback', options=self.options, description='some description')
         response = self.app.get('/feedback/{}'.format(feedback.id))
+        assert response.status_code == 200
+        assert b"<h2>somefeedback</h2>" in response.data
+        assert b"some description" in response.data
+        assert b":)" in response.data
+        assert b":(" in response.data
+
+    def test_should_show_kiosk_feedback_page(self):
+        feedback = save_feedback('somefeedback', options=self.options, description='some description')
+        response = self.app.get('/feedback/{}/kiosk'.format(feedback.id))
         assert response.status_code == 200
         assert b"<h2>somefeedback</h2>" in response.data
         assert b"some description" in response.data

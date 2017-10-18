@@ -200,8 +200,7 @@ textarea {
   visibility: hidden; }
 
 #results #statistics {
-  text-align: right;
-  float: right;
+  display: inline-block;
   border: 1px solid #e1e1e1;
   border-radius: 8px; }
   #results #statistics .stat {

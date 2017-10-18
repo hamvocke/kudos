@@ -39,6 +39,14 @@ def create_feedback():
     return render_template('create_feedback.html', form=form)
 
 
+@app.route('/feedback/<int:feedback_id>/kiosk', methods=['GET'])
+def feedback_kiosk(feedback_id):
+    feedback = Feedback.query.get(feedback_id)
+    if feedback is None:
+        abort(404)
+    return render_template('feedback_kiosk.html', feedback=feedback)
+
+
 @app.route('/feedback/<int:feedback_id>', methods=['GET'])
 def feedback(feedback_id):
     feedback = Feedback.query.get(feedback_id)
