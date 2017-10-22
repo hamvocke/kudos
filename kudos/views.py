@@ -35,8 +35,16 @@ def create_feedback():
         db.session.commit()
 
         flash('Created new feedback')
-        return redirect(url_for('feedback', feedback_id=feedback.id))
+        return redirect(url_for('created_feedback', feedback_id=feedback.id))
     return render_template('create_feedback.html', form=form)
+
+
+@app.route('/feedback/<int:feedback_id>/start', methods=['GET'])
+def created_feedback(feedback_id):
+    feedback = Feedback.query.get(feedback_id)
+    if feedback is None:
+        abort(404)
+    return render_template('created_feedback.html')
 
 
 @app.route('/feedback/<int:feedback_id>/kiosk', methods=['GET'])

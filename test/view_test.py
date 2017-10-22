@@ -44,10 +44,20 @@ class ViewTestCase(unittest.TestCase):
         assert response.status_code == 200
         assert b"Get your feedback. It's super simple!" in response.data
 
-    def test_should_redirect_to_feedback_page_after_create(self):
+    def test_should_redirect_to_feedback_created_page_after_create(self):
         response = self.app.post("/feedback/create", data=self.feedback_dict, follow_redirects=True)
         assert response.status_code == 200
-        assert b"<h2>test</h2>" in response.data
+        assert b"<h2>You're ready for feedback!</h2>" in response.data
+
+    def test_should_show_getting_started_page(self):
+        feedback = save_feedback('somefeedback', self.options)
+        response = self.app.get("/feedback/{}/start".format(feedback.id))
+        assert response.status_code == 200
+        assert b"<h2>You're ready for feedback!</h2>" in response.data
+
+    def test_should_show_404_on_getting_started_page(self):
+        response = self.app.get("/feedback/999/start")
+        assert response.status_code == 404
 
     def test_should_flash_message_after_create(self):
         response = self.app.post("/feedback/create", data=self.feedback_dict, follow_redirects=True)
