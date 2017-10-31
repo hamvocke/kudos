@@ -111,19 +111,9 @@ class ViewTestCase(unittest.TestCase):
             'option': self.options[0].id,
             'text': 'some text'
         }
-        response = self.app.post('/feedback/{}/vote/'.format(feedback.id), data=vote,
-                                 follow_redirects=True)
+        response = self.app.post('/feedback/{}'.format(feedback.id), data=vote, follow_redirects=True)
         assert response.status_code == 200
         assert b"Thanks for your feedback!" in response.data
-
-    def test_should_return_error_for_invalid_vote(self):
-        feedback = save_feedback('somefeedback', self.options)
-        vote = {
-            'option': 99
-        }
-        response = self.app.post('/feedback/{}/vote/'.format(feedback.id), data=vote)
-        assert response.status_code == 400
-        assert b"Option (id=99) is unknown for this feedback" in response.data
 
     def test_should_save_vote(self):
         feedback = save_feedback('somefeedback', self.options)
@@ -131,18 +121,19 @@ class ViewTestCase(unittest.TestCase):
             'option': self.options[0].id,
             'text': 'some text'
         }
-        self.app.post('/feedback/{}/vote/'.format(feedback.id), data=vote)
+        self.app.post('/feedback/{}'.format(feedback.id), data=vote, follow_redirects=True)
         saved_votes = Vote.query.all()
         assert len(saved_votes) == 1
         assert saved_votes[0].option == ':('
 
     def test_should_redirect_after_vote(self):
         feedback = save_feedback('somefeedback', self.options)
+
         vote = {
             'option': self.options[0].id,
             'text': 'some text'
         }
-        response = self.app.post('/feedback/{}/vote/'.format(feedback.id), data=vote)
+        response = self.app.post('/feedback/{}'.format(feedback.id), data=vote)
         assert response.status_code == 302
 
     def test_should_show_feedback_results(self):

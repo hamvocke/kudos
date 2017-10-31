@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-<section id="feedback" class="container">
+<section id="feedback-kiosk" class="container">
     <div class="title">
         <h2>{{ feedback.name }}</h2>
         <div class="subtitle">
@@ -20,7 +20,7 @@
 
     <div class="options">
         {% for option in feedback.options %}
-        <form action="{{ url_for('vote', feedback_id=feedback.id) }}" method="post">
+        <form action="{{ url_for('feedback', feedback_id=feedback.id) }}" method="post">
             <input type="text" name="option" value="{{ option.id }}">
             <input type="text" name="text">
             <button class="button button-primary big option" type="submit">{{ option.description }}</button>

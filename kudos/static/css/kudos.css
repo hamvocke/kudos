@@ -236,17 +236,17 @@ textarea {
   max-width: 300px;
   max-height: 300px; }
 
-#feedback .options {
+#feedback-kiosk .options {
   display: flex;
   flex-wrap: wrap;
   justify-content: center; }
-  #feedback .options button {
+  #feedback-kiosk .options button {
     margin: 8px; }
-  #feedback .options form {
+  #feedback-kiosk .options form {
     display: inline; }
-  #feedback .options input[name='option'] {
+  #feedback-kiosk .options input[name='option'] {
     display: none; }
-  #feedback .options input[name='text'] {
+  #feedback-kiosk .options input[name='text'] {
     display: none; }
 
 /*# sourceMappingURL=kudos.css.map */

@@ -5,7 +5,7 @@ from flask import render_template, redirect, url_for, flash, abort, make_respons
 from kudos import app
 from kudos import db
 from kudos import qr
-from kudos.forms import CreateFeedbackForm
+from kudos.forms import CreateFeedbackForm, VoteForm
 from kudos.models import Feedback, Option
 
 
@@ -55,35 +55,29 @@ def feedback_kiosk(feedback_id):
     return render_template('feedback_kiosk.html', feedback=feedback)
 
 
-@app.route('/feedback/<int:feedback_id>', methods=['GET'])
+@app.route('/feedback/<int:feedback_id>', methods=['GET', 'POST'])
 def feedback(feedback_id):
     feedback = Feedback.query.get(feedback_id)
     if feedback is None:
         abort(404)
-    return render_template('feedback.html', feedback=feedback)
 
+    form = VoteForm()
+    form.option.choices = [(option.id, option.description) for option in feedback.options]
 
-@app.route('/feedback/<int:feedback_id>/vote/', methods=['POST'])
-def vote(feedback_id):
-    feedback = Feedback.query.get(feedback_id)
+    if form.validate_on_submit():
+        option_id = form.option.data
+        text = form.text.data
 
-    if feedback is None:
-        abort(404)
+        option = Option.query.get(option_id)
 
-    option_id = request.form['option']
-    text = request.form.get('text')
+        feedback.vote(option, text)
+        db.session.add(feedback)
+        db.session.commit()
 
-    option = Option.query.get(option_id)
+        flash('Thanks for your feedback!')
+        return redirect(url_for('feedback', feedback_id=feedback.id))
 
-    if option is None:
-        return make_response('Option (id={}) is unknown for this feedback'.format(option_id), 400)
-
-    feedback.vote(option, text)
-    db.session.add(feedback)
-    db.session.commit()
-
-    flash('Thanks for your feedback!')
-    return redirect(url_for('feedback', feedback_id=feedback.id))
+    return render_template('feedback.html', feedback=feedback, form=form)
 
 
 @app.route('/feedback/<int:feedback_id>/results', methods=['GET'])
