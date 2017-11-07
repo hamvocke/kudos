@@ -14,6 +14,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/frontpage', methods=['GET'])
+def frontpage():
+    return render_template('frontpage.html')
+
+
 @app.route('/feedback', methods=['GET'])
 def all_feedback():
     feedbacks = Feedback.query.all()
