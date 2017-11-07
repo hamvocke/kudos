@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from flask import render_template, redirect, url_for, flash, abort, make_response, send_file, request
+from flask import render_template, redirect, url_for, flash, abort, send_file
 
 from kudos import app
 from kudos import db
